@@ -22,12 +22,47 @@
                                 <color key="backgroundColor" name="YP Black"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagesListCell" id="sRv-lR-Fdy" customClass="ImagesListCell" customModule="imageFeedApplication" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sRv-lR-Fdy" id="D85-SP-Pdm">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="27e-tY-tTp">
+                                                    <rect key="frame" x="16" y="4" width="361" height="132"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="16"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFi-6T-vEK">
+                                                    <rect key="frame" x="335" y="4" width="42" height="42"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="like_button_on"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDo-xb-LUz">
+                                                    <rect key="frame" x="23.999999999999996" y="107" width="38.666666666666657" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" name="YP Black"/>
+                                            <constraints>
+                                                <constraint firstItem="AFi-6T-vEK" firstAttribute="top" secondItem="27e-tY-tTp" secondAttribute="top" id="4zt-bU-xZC"/>
+                                                <constraint firstItem="27e-tY-tTp" firstAttribute="top" secondItem="D85-SP-Pdm" secondAttribute="top" constant="4" id="Bwi-82-B46"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EDo-xb-LUz" secondAttribute="trailing" constant="8" id="Crv-Ka-qjk"/>
+                                                <constraint firstItem="EDo-xb-LUz" firstAttribute="leading" secondItem="27e-tY-tTp" secondAttribute="leading" constant="8" id="HYc-SZ-xZI"/>
+                                                <constraint firstAttribute="bottom" secondItem="27e-tY-tTp" secondAttribute="bottom" constant="4" id="Sam-zv-3Zu"/>
+                                                <constraint firstItem="27e-tY-tTp" firstAttribute="trailing" secondItem="AFi-6T-vEK" secondAttribute="trailing" id="hbA-xS-loe"/>
+                                                <constraint firstAttribute="trailing" secondItem="27e-tY-tTp" secondAttribute="trailing" constant="16" id="iR3-ng-ncD"/>
+                                                <constraint firstItem="27e-tY-tTp" firstAttribute="bottom" secondItem="EDo-xb-LUz" secondAttribute="bottom" constant="8" id="nbA-OK-P4h"/>
+                                                <constraint firstItem="AFi-6T-vEK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D85-SP-Pdm" secondAttribute="leading" constant="20" symbolic="YES" id="py3-eZ-vqm"/>
+                                                <constraint firstItem="27e-tY-tTp" firstAttribute="leading" secondItem="D85-SP-Pdm" secondAttribute="leading" constant="16" id="rGy-08-wdd"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="YP Black"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -55,6 +90,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="0" width="200" height="132"/>
+        <image name="like_button_on" width="42" height="42"/>
         <namedColor name="YP Black">
             <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

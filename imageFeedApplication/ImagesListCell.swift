@@ -10,4 +10,8 @@ import UIKit
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
+    
+    @IBOutlet var tableImage: UIImageView!
+    @IBOutlet var tableLabel: UILabel!
+    @IBOutlet var tableButton: UIButton!
 }

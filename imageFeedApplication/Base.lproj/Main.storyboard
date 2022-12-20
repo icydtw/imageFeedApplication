@@ -63,6 +63,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="YP Black"/>
+                                        <connections>
+                                            <outlet property="tableButton" destination="AFi-6T-vEK" id="9F5-hh-hGN"/>
+                                            <outlet property="tableImage" destination="27e-tY-tTp" id="1YP-Q5-tlf"/>
+                                            <outlet property="tableLabel" destination="EDo-xb-LUz" id="CB7-dh-G94"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

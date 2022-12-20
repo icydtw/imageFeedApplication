@@ -58,16 +58,24 @@
 		B4F175802951A4540037E886 /* imageFeedApplication */ = {
 			isa = PBXGroup;
 			children = (
+				B4F1759A2951BAF40037E886 /* ImagesList */,
 				B4F175812951A4540037E886 /* AppDelegate.swift */,
 				B4F175832951A4540037E886 /* SceneDelegate.swift */,
-				B4F175852951A4540037E886 /* ImagesListViewController.swift */,
-				B4F175982951B1340037E886 /* ImagesListCell.swift */,
 				B4F175872951A4540037E886 /* Main.storyboard */,
 				B4F1758A2951A4550037E886 /* Assets.xcassets */,
 				B4F1758C2951A4550037E886 /* LaunchScreen.storyboard */,
 				B4F1758F2951A4550037E886 /* Info.plist */,
 			);
 			path = imageFeedApplication;
+			sourceTree = "<group>";
+		};
+		B4F1759A2951BAF40037E886 /* ImagesList */ = {
+			isa = PBXGroup;
+			children = (
+				B4F175852951A4540037E886 /* ImagesListViewController.swift */,
+				B4F175982951B1340037E886 /* ImagesListCell.swift */,
+			);
+			path = ImagesList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

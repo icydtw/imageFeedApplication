@@ -139,6 +139,9 @@ myImageView.clipsToBounds = true</string>
                                 <rect key="frame" x="357" y="91" width="20" height="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="ipad.and.arrow.forward"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="Tg2-ed-tra" eventType="touchUpInside" id="F0Q-8e-PAX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bD8-MQ-YRM"/>
@@ -159,6 +162,13 @@ myImageView.clipsToBounds = true</string>
                             <constraint firstItem="bD8-MQ-YRM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="06d-L1-6sp" secondAttribute="trailing" symbolic="YES" id="vgO-7W-XPV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="buttonView" destination="ZmN-TD-GGA" id="bsr-gC-N64"/>
+                        <outlet property="descriptionLabel" destination="06d-L1-6sp" id="9dF-0U-HWE"/>
+                        <outlet property="imageView" destination="eQA-nr-9B8" id="ay8-vK-y9p"/>
+                        <outlet property="nameLabel" destination="iUF-bO-3Ob" id="zho-gW-qfs"/>
+                        <outlet property="nicknameLabel" destination="Mut-Dr-jsh" id="kQW-u1-Iib"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2k-YX-bbM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

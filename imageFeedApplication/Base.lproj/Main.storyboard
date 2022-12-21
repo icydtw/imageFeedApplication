@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Tg2-ed-tra">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,30 +93,85 @@
             </objects>
             <point key="canvasLocation" x="48" y="-2"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="Oca-M8-Vfz">
             <objects>
-                <viewController id="Tg2-ed-tra" sceneMemberID="viewController">
+                <viewController id="Tg2-ed-tra" customClass="ProfileViewController" customModule="imageFeedApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bC8-Pv-u6U">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_photo" translatesAutoresizingMaskIntoConstraints="NO" id="eQA-nr-9B8">
+                                <rect key="frame" x="16" y="91" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="3ab-aN-VYM"/>
+                                    <constraint firstAttribute="width" constant="70" id="QQv-Ca-9MU"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" value="YES">
+                                        <string key="keyPath">myImageView.layer.cornerRadius = 100
+myImageView.clipsToBounds = true</string>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Илья Тимченко" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUF-bO-3Ob">
+                                <rect key="frame" x="16" y="169" width="165.66666666666666" height="27"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@icydtw" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mut-Dr-jsh">
+                                <rect key="frame" x="16" y="204" width="52" height="15.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.68235294117647061" green="0.68627450980392157" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06d-L1-6sp">
+                                <rect key="frame" x="16" y="227.66666666666666" width="75.666666666666671" height="15.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZmN-TD-GGA">
+                                <rect key="frame" x="357" y="91" width="20" height="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ipad.and.arrow.forward"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bD8-MQ-YRM"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="YP Black"/>
+                        <constraints>
+                            <constraint firstItem="eQA-nr-9B8" firstAttribute="top" secondItem="bD8-MQ-YRM" secondAttribute="top" constant="32" id="1C1-cB-NXX"/>
+                            <constraint firstItem="Mut-Dr-jsh" firstAttribute="top" secondItem="iUF-bO-3Ob" secondAttribute="bottom" constant="8" id="7PH-21-CEe"/>
+                            <constraint firstItem="ZmN-TD-GGA" firstAttribute="top" secondItem="bD8-MQ-YRM" secondAttribute="top" constant="32" id="9eA-0r-IeD"/>
+                            <constraint firstItem="bD8-MQ-YRM" firstAttribute="trailing" secondItem="ZmN-TD-GGA" secondAttribute="trailing" constant="16" id="Ari-8P-yTG"/>
+                            <constraint firstItem="iUF-bO-3Ob" firstAttribute="leading" secondItem="bD8-MQ-YRM" secondAttribute="leading" constant="16" id="JXB-nq-o1P"/>
+                            <constraint firstItem="eQA-nr-9B8" firstAttribute="leading" secondItem="bD8-MQ-YRM" secondAttribute="leading" constant="16" id="JrP-N0-GIQ"/>
+                            <constraint firstItem="bD8-MQ-YRM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mut-Dr-jsh" secondAttribute="trailing" symbolic="YES" id="K4K-M0-fnA"/>
+                            <constraint firstItem="iUF-bO-3Ob" firstAttribute="top" secondItem="eQA-nr-9B8" secondAttribute="bottom" constant="8" id="Nrm-7v-jxL"/>
+                            <constraint firstItem="Mut-Dr-jsh" firstAttribute="leading" secondItem="bD8-MQ-YRM" secondAttribute="leading" constant="16" id="SiR-1r-Nrf"/>
+                            <constraint firstItem="bD8-MQ-YRM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iUF-bO-3Ob" secondAttribute="trailing" symbolic="YES" id="dUl-n8-skK"/>
+                            <constraint firstItem="06d-L1-6sp" firstAttribute="top" secondItem="Mut-Dr-jsh" secondAttribute="bottom" constant="8" id="esi-7Z-2lB"/>
+                            <constraint firstItem="06d-L1-6sp" firstAttribute="leading" secondItem="bD8-MQ-YRM" secondAttribute="leading" constant="16" id="oj1-vw-ZrP"/>
+                            <constraint firstItem="bD8-MQ-YRM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="06d-L1-6sp" secondAttribute="trailing" symbolic="YES" id="vgO-7W-XPV"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2k-YX-bbM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-553" y="-679"/>
+            <point key="canvasLocation" x="849.61832061068696" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
+        <image name="ipad.and.arrow.forward" width="20" height="22"/>
         <image name="like_button_on" width="42" height="42"/>
+        <image name="profile_photo" width="1024" height="1024"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

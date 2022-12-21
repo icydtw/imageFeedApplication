@@ -11,7 +11,7 @@ import UIKit
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
     
-    @IBOutlet var tableImage: UIImageView!
-    @IBOutlet var tableLabel: UILabel!
-    @IBOutlet var tableButton: UIButton!
+    @IBOutlet var imgView: UIImageView!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var likeButton: UIButton!
 }

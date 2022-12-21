@@ -62,13 +62,12 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: String(photosName[indexPath.row])) else {return}
-        cell.tableImage.image = image
-        cell.tableLabel.text = dateFormatter.string(from: Date())
-        switch (indexPath.row+1) % 2 {
-        case 0: cell.tableButton.imageView?.image = UIImage(named: "like_button_on")
-        case 1: cell.tableButton.imageView?.image = UIImage(named: "like_button_off")
-        default:
-            cell.tableButton.imageView?.image = UIImage(named: "like_button_off")
+        cell.imgView.image = image
+        cell.dateLabel.text = dateFormatter.string(from: Date())
+        if ((indexPath.row+1) % 2) == 0 {
+            cell.likeButton.imageView?.image = UIImage(named: "like_button_on")
+        } else {
+            cell.likeButton.imageView?.image = UIImage(named: "like_button_off")
         }
     }
 }

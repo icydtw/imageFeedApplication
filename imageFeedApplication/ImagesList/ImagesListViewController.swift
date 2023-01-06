@@ -29,7 +29,7 @@ class ImagesListViewController: UIViewController {
             let destinationController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
             let image = UIImage(named: photosName[indexPath.row])
-            destinationController.imageView.image = image
+            destinationController.image = image
         } else {
             super.prepare(for: segue, sender: sender)
         }

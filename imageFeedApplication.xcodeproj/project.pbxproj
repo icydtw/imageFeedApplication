@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B40121412967DE640055F198 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40121402967DE640055F198 /* SingleImageViewController.swift */; };
 		B434BAD42952F5E3002F8A02 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B434BAD32952F5E3002F8A02 /* ProfileViewController.swift */; };
 		B4F175822951A4540037E886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F175812951A4540037E886 /* AppDelegate.swift */; };
 		B4F175842951A4540037E886 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F175832951A4540037E886 /* SceneDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B40121402967DE640055F198 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		B434BAD32952F5E3002F8A02 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B4F1757E2951A4540037E886 /* imageFeedApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imageFeedApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F175812951A4540037E886 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				B4F1758A2951A4550037E886 /* Assets.xcassets */,
 				B4F1758C2951A4550037E886 /* LaunchScreen.storyboard */,
 				B4F1758F2951A4550037E886 /* Info.plist */,
+				B40121402967DE640055F198 /* SingleImageViewController.swift */,
 			);
 			path = imageFeedApplication;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				B4F175992951B1340037E886 /* ImagesListCell.swift in Sources */,
 				B434BAD42952F5E3002F8A02 /* ProfileViewController.swift in Sources */,
 				B4F175822951A4540037E886 /* AppDelegate.swift in Sources */,
+				B40121412967DE640055F198 /* SingleImageViewController.swift in Sources */,
 				B4F175842951A4540037E886 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

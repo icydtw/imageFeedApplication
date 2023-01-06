@@ -23,7 +23,7 @@
                         </tabBarAppearance>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Uaa-bx-J9p"/>
+                        <segue destination="nFz-Ag-sLO" kind="relationship" relationship="viewControllers" id="Uaa-bx-J9p"/>
                         <segue destination="Tg2-ed-tra" kind="relationship" relationship="viewControllers" id="ifI-Wn-86U"/>
                     </connections>
                 </tabBarController>
@@ -107,14 +107,14 @@
                             <constraint firstAttribute="trailing" secondItem="fpG-ML-8Qc" secondAttribute="trailing" id="ulh-1b-PWI"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="RdU-J2-4fo"/>
+                    <navigationItem key="navigationItem" id="JYc-Ht-Xg7"/>
                     <connections>
                         <outlet property="tableView" destination="fpG-ML-8Qc" id="2gK-3P-xOa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="88" y="-429"/>
+            <point key="canvasLocation" x="1014.5038167938931" y="-429.57746478873241"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="Oca-M8-Vfz">
@@ -133,10 +133,6 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="35"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" value="YES">
-                                        <string key="keyPath">myImageView.layer.cornerRadius = 100
-myImageView.clipsToBounds = true</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
@@ -197,6 +193,30 @@ myImageView.clipsToBounds = true</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2k-YX-bbM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="88" y="258"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vSh-1a-yY0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nFz-Ag-sLO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="RdU-J2-4fo"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gv8-90-J9n">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="YP Black"/>
+                        </navigationBarAppearance>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Qib-x8-LOE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9m-2F-Zep" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="87.786259541984734" y="-429.57746478873241"/>
         </scene>
     </scenes>
     <resources>

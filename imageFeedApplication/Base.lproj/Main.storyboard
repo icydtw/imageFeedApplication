@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="o6M-Ca-sE6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qpT-Gl-UQq">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -110,6 +110,7 @@
                     <navigationItem key="navigationItem" id="JYc-Ht-Xg7"/>
                     <connections>
                         <outlet property="tableView" destination="fpG-ML-8Qc" id="2gK-3P-xOa"/>
+                        <segue destination="o6M-Ca-sE6" kind="show" identifier="ShowSingleImage" id="rP9-QH-9Ri"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -203,7 +204,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZqF-17-UxE">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Baq-Q5-aPm"/>
@@ -215,13 +216,14 @@
                             <constraint firstItem="Baq-Q5-aPm" firstAttribute="bottom" secondItem="ZqF-17-UxE" secondAttribute="bottom" id="wg2-IB-wsG"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="2B6-Ix-W6f"/>
                     <connections>
                         <outlet property="imageView" destination="ZqF-17-UxE" id="PFC-Se-6gz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WA-dY-CIT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1015" y="258"/>
+            <point key="canvasLocation" x="1940" y="-430"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vSh-1a-yY0">

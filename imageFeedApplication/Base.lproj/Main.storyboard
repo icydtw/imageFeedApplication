@@ -110,7 +110,7 @@
                     <navigationItem key="navigationItem" id="JYc-Ht-Xg7"/>
                     <connections>
                         <outlet property="tableView" destination="fpG-ML-8Qc" id="2gK-3P-xOa"/>
-                        <segue destination="o6M-Ca-sE6" kind="show" identifier="ShowSingleImage" id="rP9-QH-9Ri"/>
+                        <segue destination="o6M-Ca-sE6" kind="presentation" identifier="ShowSingleImage" id="rP9-QH-9Ri"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -198,22 +198,36 @@
         <!--Single Image View Controller-->
         <scene sceneID="bbc-ye-E7D">
             <objects>
-                <viewController id="o6M-Ca-sE6" customClass="SingleImageViewController" customModule="imageFeedApplication" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="o6M-Ca-sE6" customClass="SingleImageViewController" customModule="imageFeedApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Sr-Nz-LZd">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZqF-17-UxE">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMb-W7-OVr">
+                                <rect key="frame" x="8" y="67" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="5JX-Of-wTp"/>
+                                    <constraint firstAttribute="width" constant="48" id="nru-41-DkU"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="chevron.backward"/>
+                                <connections>
+                                    <action selector="didTapBackButton" destination="o6M-Ca-sE6" eventType="touchUpInside" id="qGU-if-gms"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Baq-Q5-aPm"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="ZqF-17-UxE" firstAttribute="leading" secondItem="Baq-Q5-aPm" secondAttribute="leading" id="9BE-3c-Hca"/>
-                            <constraint firstItem="Baq-Q5-aPm" firstAttribute="trailing" secondItem="ZqF-17-UxE" secondAttribute="trailing" id="WR6-F3-fJS"/>
-                            <constraint firstItem="ZqF-17-UxE" firstAttribute="top" secondItem="Baq-Q5-aPm" secondAttribute="top" id="cZx-l8-ACd"/>
-                            <constraint firstItem="Baq-Q5-aPm" firstAttribute="bottom" secondItem="ZqF-17-UxE" secondAttribute="bottom" id="wg2-IB-wsG"/>
+                            <constraint firstItem="ZqF-17-UxE" firstAttribute="leading" secondItem="4Sr-Nz-LZd" secondAttribute="leading" id="9BE-3c-Hca"/>
+                            <constraint firstItem="SMb-W7-OVr" firstAttribute="leading" secondItem="Baq-Q5-aPm" secondAttribute="leading" constant="8" id="JQP-Ti-GUJ"/>
+                            <constraint firstAttribute="trailing" secondItem="ZqF-17-UxE" secondAttribute="trailing" id="WR6-F3-fJS"/>
+                            <constraint firstItem="ZqF-17-UxE" firstAttribute="top" secondItem="4Sr-Nz-LZd" secondAttribute="top" id="cZx-l8-ACd"/>
+                            <constraint firstItem="SMb-W7-OVr" firstAttribute="top" secondItem="Baq-Q5-aPm" secondAttribute="top" constant="8" id="htR-Hp-eah"/>
+                            <constraint firstAttribute="bottom" secondItem="ZqF-17-UxE" secondAttribute="bottom" id="wg2-IB-wsG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2B6-Ix-W6f"/>
@@ -252,6 +266,7 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
+        <image name="chevron.backward" width="9" height="15.666666984558105"/>
         <image name="ipad.and.arrow.forward" width="20" height="22"/>
         <image name="like_button_on" width="42" height="42"/>
         <image name="profile_photo" width="1024" height="1024"/>

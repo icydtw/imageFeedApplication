@@ -76,8 +76,8 @@
 				B4F175812951A4540037E886 /* AppDelegate.swift */,
 				B4F175832951A4540037E886 /* SceneDelegate.swift */,
 				B4F175872951A4540037E886 /* Main.storyboard */,
-				B4F1758A2951A4550037E886 /* Assets.xcassets */,
 				B4F1758C2951A4550037E886 /* LaunchScreen.storyboard */,
+				B4F1758A2951A4550037E886 /* Assets.xcassets */,
 				B4F1758F2951A4550037E886 /* Info.plist */,
 			);
 			path = imageFeedApplication;

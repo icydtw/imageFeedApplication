@@ -247,6 +247,7 @@
                     <navigationItem key="navigationItem" id="2B6-Ix-W6f"/>
                     <connections>
                         <outlet property="imageView" destination="ZqF-17-UxE" id="PFC-Se-6gz"/>
+                        <outlet property="scrollView" destination="TQT-7d-WyF" id="LpX-kG-icS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WA-dY-CIT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

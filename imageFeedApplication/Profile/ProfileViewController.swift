@@ -33,7 +33,6 @@ class ProfileViewController: UIViewController {
         profilePicture.translatesAutoresizingMaskIntoConstraints = false
         profilePicture.layer.cornerRadius = 35
         profilePicture.layer.masksToBounds = true
-        view.addSubview(profilePicture)
     }
     
     private func setupUsernameLabel() {
@@ -41,7 +40,6 @@ class ProfileViewController: UIViewController {
         usernameLabel.text = "Илья Тимченко"
         usernameLabel.textColor = .white
         usernameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
-        view.addSubview(usernameLabel)
     }
     
     private func setupNicknameLabel() {
@@ -49,7 +47,6 @@ class ProfileViewController: UIViewController {
         nicknameLabel.text = "@icydtw"
         nicknameLabel.textColor = UIColor(named: "YP Gray")
         nicknameLabel.font = UIFont.systemFont(ofSize: 13)
-        view.addSubview(nicknameLabel)
     }
     
     private func setupStatusLabel() {
@@ -57,7 +54,6 @@ class ProfileViewController: UIViewController {
         statusLabel.text = "Hello, world!"
         statusLabel.textColor = .white
         statusLabel.font = UIFont.systemFont(ofSize: 13)
-        view.addSubview(statusLabel)
     }
     
     private func setupExitButton() {
@@ -67,10 +63,14 @@ class ProfileViewController: UIViewController {
         exitButtonView.addTarget(self, action: #selector(didExitButtonTap), for: .touchUpInside)
         exitButtonView.translatesAutoresizingMaskIntoConstraints = false
         exitButtonView.tintColor = UIColor(named: "YP Red")
-        view.addSubview(exitButtonView)
     }
     
     private func setupLayout() {
+        view.addSubview(profilePicture)
+        view.addSubview(usernameLabel)
+        view.addSubview(nicknameLabel)
+        view.addSubview(statusLabel)
+        view.addSubview(exitButtonView)
         NSLayoutConstraint.activate([
             profilePicture.heightAnchor.constraint(equalToConstant: 70),
             profilePicture.widthAnchor.constraint(equalToConstant: 70),

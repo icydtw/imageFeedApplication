@@ -174,7 +174,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0C-VT-d8t">
-                                <rect key="frame" x="171.66666666666666" y="768" width="50" height="50"/>
+                                <rect key="frame" x="171.66666666666666" y="751" width="50" height="50"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
                                 <connections>
@@ -189,7 +189,7 @@
                             <constraint firstItem="SMb-W7-OVr" firstAttribute="leading" secondItem="Baq-Q5-aPm" secondAttribute="leading" constant="8" id="JQP-Ti-GUJ"/>
                             <constraint firstAttribute="trailing" secondItem="TQT-7d-WyF" secondAttribute="trailing" id="NrN-cm-h60"/>
                             <constraint firstItem="h0C-VT-d8t" firstAttribute="centerX" secondItem="4Sr-Nz-LZd" secondAttribute="centerX" id="PdS-98-u7M"/>
-                            <constraint firstItem="Baq-Q5-aPm" firstAttribute="bottom" secondItem="h0C-VT-d8t" secondAttribute="bottom" id="Xqg-nJ-x8i"/>
+                            <constraint firstItem="Baq-Q5-aPm" firstAttribute="bottom" secondItem="h0C-VT-d8t" secondAttribute="bottom" constant="17" id="Xqg-nJ-x8i"/>
                             <constraint firstItem="SMb-W7-OVr" firstAttribute="top" secondItem="Baq-Q5-aPm" secondAttribute="top" constant="8" id="htR-Hp-eah"/>
                             <constraint firstAttribute="bottom" secondItem="TQT-7d-WyF" secondAttribute="bottom" id="yNc-OF-4qP"/>
                             <constraint firstItem="TQT-7d-WyF" firstAttribute="leading" secondItem="4Sr-Nz-LZd" secondAttribute="leading" id="zbt-Qj-2f6"/>

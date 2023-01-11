@@ -9,83 +9,87 @@ import Foundation
 import UIKit
 
 class ProfileViewController: UIViewController {
-    var profilePic = UIImageView()
-    var usernameLabel = UILabel()
-    var nicknameLabel = UILabel()
-    var statusLabel = UILabel()
-    var buttonView = UIButton()
+    private let profilePicture = UIImageView()
+    private let usernameLabel = UILabel()
+    private let nicknameLabel = UILabel()
+    private let statusLabel = UILabel()
+    private let exitButtonView = UIButton()
     
     override func viewDidLoad() {
-        profilePictureMaker()
-        usernameLabelMaker()
-        nicknameLabelMaker()
-        statusLabelMaker()
-        buttonMaker()
+        super.viewDidLoad()
+        setupProfilePicture()
+        setupUsernameLabel()
+        setupNicknameLabel()
+        setupStatusLabel()
+        setupExitButton()
+        setupLayout()
     }
     
     //Функции с кодом вёрстки
-    private func profilePictureMaker() {
-        let profilePicture = UIImage(named: "profile_photo")
-        let profilePictureView = UIImageView(image: profilePicture)
-        profilePictureView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(profilePictureView)
-        profilePictureView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        profilePictureView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        profilePictureView.layer.cornerRadius = 35
-        profilePictureView.layer.masksToBounds = true
-        profilePictureView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        profilePictureView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        self.profilePic = profilePictureView
+    private func setupProfilePicture() {
+        if let profileImage = UIImage(named: "profile_photo") {
+            profilePicture.image = profileImage
+        }
+        profilePicture.translatesAutoresizingMaskIntoConstraints = false
+        profilePicture.layer.cornerRadius = 35
+        profilePicture.layer.masksToBounds = true
+        view.addSubview(profilePicture)
     }
     
-    private func usernameLabelMaker() {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        label.text = "Илья Тимченко"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 23)
-        label.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 8).isActive = true
-        label.leadingAnchor.constraint(equalTo: profilePic.leadingAnchor).isActive = true
-        self.usernameLabel = label
+    private func setupUsernameLabel() {
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        usernameLabel.text = "Илья Тимченко"
+        usernameLabel.textColor = .white
+        usernameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        view.addSubview(usernameLabel)
     }
     
-    private func nicknameLabelMaker() {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        label.text = "@icydtw"
-        label.textColor = UIColor(named: "YP Gray")
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8).isActive = true
-        label.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor).isActive = true
-        self.nicknameLabel = label
+    private func setupNicknameLabel() {
+        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nicknameLabel.text = "@icydtw"
+        nicknameLabel.textColor = UIColor(named: "YP Gray")
+        nicknameLabel.font = UIFont.systemFont(ofSize: 13)
+        view.addSubview(nicknameLabel)
     }
     
-    private func statusLabelMaker() {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        label.text = "Hello, world!"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor, constant: 8).isActive = true
-        label.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
-        self.nicknameLabel = label
+    private func setupStatusLabel() {
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.text = "Hello, world!"
+        statusLabel.textColor = .white
+        statusLabel.font = UIFont.systemFont(ofSize: 13)
+        view.addSubview(statusLabel)
     }
     
-    private func buttonMaker() {
-        let button = UIButton.systemButton(with: UIImage(named: "ipad.and.arrow.forward") ?? UIImage(), target: self, action: #selector(didExitButtonTap))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
-        button.tintColor = UIColor(named: "YP Red")
-        button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        self.buttonView = button
+    private func setupExitButton() {
+        if let buttonImage = UIImage(named: "ipad.and.arrow.forward") {
+            exitButtonView.setImage(buttonImage, for: .normal)
+        }
+        exitButtonView.addTarget(self, action: #selector(didExitButtonTap), for: .touchUpInside)
+        exitButtonView.translatesAutoresizingMaskIntoConstraints = false
+        exitButtonView.tintColor = UIColor(named: "YP Red")
+        view.addSubview(exitButtonView)
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            profilePicture.heightAnchor.constraint(equalToConstant: 70),
+            profilePicture.widthAnchor.constraint(equalToConstant: 70),
+            profilePicture.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            profilePicture.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            usernameLabel.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 8),
+            usernameLabel.leadingAnchor.constraint(equalTo: profilePicture.leadingAnchor),
+            nicknameLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8),
+            nicknameLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
+            statusLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor, constant: 8),
+            statusLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor),
+            exitButtonView.centerYAnchor.constraint(equalTo: profilePicture.centerYAnchor),
+            exitButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
     }
     
     @objc
-    func didExitButtonTap() {
+    private func didExitButtonTap() {
         //Код кнопки
+        print("Button tapped")
     }
 }

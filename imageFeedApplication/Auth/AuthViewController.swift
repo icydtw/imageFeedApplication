@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import UIKit
 
-class AuthViewController {
-    
+class AuthViewController: UIViewController {
+    let authViewID = "ShowWebView"
 }

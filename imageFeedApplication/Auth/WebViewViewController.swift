@@ -12,8 +12,10 @@ import WebKit
 class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
     @IBAction func didTapBackButton(_ sender: Any) {
-        dismiss(animated: true)
+        delegate?.webViewViewControllerDidCancel(self)
     }
+    
+    weak var delegate: WebViewViewControllerDelegate?
     
     override func viewDidLoad() {
         var UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
@@ -27,5 +29,31 @@ class WebViewViewController: UIViewController {
         let url = urlComponents.url!
         let request = URLRequest(url: url)
         webView.load(request)
+        
+        webView.navigationDelegate = self
+    }
+}
+
+extension WebViewViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let code = code(from: navigationAction) { //вызываем ф-цию code, возвращающую код авторизации
+            //TODO: process code
+            decisionHandler(.cancel) //если код получен, навигация более невозможна
+        } else {
+            decisionHandler(.allow) //если кода нет, разрешаем навигацию дальше
+        }
+    }
+    
+    private func code(from navigationAction: WKNavigationAction) -> String? {
+        if let url = navigationAction.request.url,
+           let urlComponents = URLComponents(string: url.absoluteString),
+           urlComponents.path == "/oauth/authorize/native",
+           let items = urlComponents.queryItems,
+           let codeItem = items.first(where: {$0.name == "code"})
+        {
+            return codeItem.value
+        } else {
+            return nil
+        }
     }
 }

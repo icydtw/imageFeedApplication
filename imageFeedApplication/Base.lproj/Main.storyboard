@@ -206,27 +206,39 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FmV-1v-qXR">
-                                <rect key="frame" x="16" y="75" width="9" height="22"/>
+                                <rect key="frame" x="8" y="67" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="lUc-Vq-fcr"/>
+                                    <constraint firstAttribute="width" constant="48" id="o8J-it-cFk"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="nav_back_button"/>
                                 <connections>
                                     <action selector="didTapBackButton:" destination="kgF-Om-pGi" eventType="touchUpInside" id="1Qd-zw-g9s"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Pxl-v0-Ocr">
+                                <rect key="frame" x="0.0" y="115" width="393" height="4"/>
+                                <color key="progressTintColor" name="YP Black"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="q7X-0o-R4c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="FmV-1v-qXR" firstAttribute="leading" secondItem="q7X-0o-R4c" secondAttribute="leading" constant="16" id="5M9-iJ-gKP"/>
+                            <constraint firstItem="FmV-1v-qXR" firstAttribute="leading" secondItem="q7X-0o-R4c" secondAttribute="leading" constant="8" id="5M9-iJ-gKP"/>
                             <constraint firstAttribute="bottom" secondItem="Jya-HT-UYQ" secondAttribute="bottom" id="Ei8-Op-Tv2"/>
                             <constraint firstItem="Jya-HT-UYQ" firstAttribute="top" secondItem="FZL-dY-jjH" secondAttribute="top" id="NyI-xg-Qvg"/>
+                            <constraint firstItem="Pxl-v0-Ocr" firstAttribute="leading" secondItem="q7X-0o-R4c" secondAttribute="leading" id="SKV-Ap-MS8"/>
                             <constraint firstItem="Jya-HT-UYQ" firstAttribute="leading" secondItem="FZL-dY-jjH" secondAttribute="leading" id="UWH-Tp-S0Y"/>
                             <constraint firstAttribute="trailing" secondItem="Jya-HT-UYQ" secondAttribute="trailing" id="Uvu-5y-qjK"/>
-                            <constraint firstItem="FmV-1v-qXR" firstAttribute="top" secondItem="q7X-0o-R4c" secondAttribute="top" constant="16" id="pYe-oc-iCj"/>
+                            <constraint firstItem="Pxl-v0-Ocr" firstAttribute="top" secondItem="FmV-1v-qXR" secondAttribute="bottom" id="ka8-fa-LNL"/>
+                            <constraint firstItem="FmV-1v-qXR" firstAttribute="top" secondItem="q7X-0o-R4c" secondAttribute="top" constant="8" id="pYe-oc-iCj"/>
+                            <constraint firstItem="q7X-0o-R4c" firstAttribute="trailing" secondItem="Pxl-v0-Ocr" secondAttribute="trailing" id="rk5-uq-IPF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="K3Q-ny-hGK"/>
                     <connections>
+                        <outlet property="progressView" destination="Pxl-v0-Ocr" id="thZ-rq-W82"/>
                         <outlet property="webView" destination="Jya-HT-UYQ" id="Yif-6O-MAj"/>
                     </connections>
                 </viewController>

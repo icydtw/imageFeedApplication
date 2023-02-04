@@ -14,6 +14,7 @@ class WebViewViewController: UIViewController {
     @IBAction func didTapBackButton(_ sender: Any) {
         delegate?.webViewViewControllerDidCancel(self)
     }
+    @IBOutlet var progressView: UIProgressView!
     
     weak var delegate: WebViewViewControllerDelegate?
     

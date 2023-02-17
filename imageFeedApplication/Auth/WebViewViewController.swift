@@ -1,13 +1,8 @@
-//
-//  WebViewViewController.swift
-//  imageFeedApplication
-//
-//  Created by Илья Тимченко on 03.02.2023.
-//
-
 import Foundation
 import UIKit
 import WebKit
+
+let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
 
 final class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
@@ -19,7 +14,6 @@ final class WebViewViewController: UIViewController {
     weak var delegate: WebViewViewControllerDelegate?
     
     override func viewDidLoad() {
-        var UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
         var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: AccessKey), //код доступа приложения
@@ -69,7 +63,7 @@ final class WebViewViewController: UIViewController {
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let code = code(from: navigationAction) { //вызываем ф-цию code, возвращающую код авторизации
-            //TODO: process code
+            //delegate?.webViewViewController(self, didAuthenticateWithCode: code)
             decisionHandler(.cancel) //если код получен, навигация более невозможна
         } else {
             decisionHandler(.allow) //если кода нет, разрешаем навигацию дальше

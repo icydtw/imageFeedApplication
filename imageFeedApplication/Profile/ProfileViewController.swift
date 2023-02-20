@@ -90,6 +90,6 @@ class ProfileViewController: UIViewController {
     @objc
     private func didExitButtonTap() {
         //Код кнопки
-        print("Button tapped")
+        print("Разлогинились, ключа нет: \(OAuth2TokenStorage().token)")
     }
 }

@@ -13,7 +13,8 @@ class OAuth2Service {
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
         let url = urlComponents.url!
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         let decoder = JSONDecoder()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {

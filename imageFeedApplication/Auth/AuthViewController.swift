@@ -3,7 +3,6 @@ import UIKit
 
 class AuthViewController: UIViewController, UIWebViewDelegate {
     let authViewID = "ShowWebView"
-    let tokenStorage = OAuth2TokenStorage()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == authViewID {
@@ -23,7 +22,7 @@ extension AuthViewController: WebViewViewControllerDelegate {
         auth.fetchAuthToken(code: code) { result in
             switch result {
             case .success(let accessKey):
-                self.tokenStorage.token = accessKey
+                OAuth2TokenStorage().token = accessKey
             case .failure(_):
                 return
             }

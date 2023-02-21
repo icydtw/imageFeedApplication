@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  imageFeedApplication
-//
-//  Created by Илья Тимченко on 20.12.2022.
-//
-
 import UIKit
 
 class ImagesListViewController: UIViewController {
@@ -72,7 +65,7 @@ extension ImagesListViewController: UITableViewDataSource {
 }
 
 extension ImagesListViewController {
-    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: String(photosName[indexPath.row])) else {return}
         cell.imgView.image = image
         cell.dateLabel.text = dateFormatter.string(from: Date())

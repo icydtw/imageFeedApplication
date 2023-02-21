@@ -14,7 +14,7 @@ class SplashViewController: UIViewController {
         }
     }
     
-    func switchToTabBar() {
+     private func switchToTabBar() {
         DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
             let tabBarController = UIStoryboard(name: "Main", bundle: .main)
@@ -32,7 +32,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         }
     }
     
-    func fetchOAuthToken(_ code: String) {
+    private func fetchOAuthToken(_ code: String) {
         let auth = OAuth2Service()
         auth.fetchAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }

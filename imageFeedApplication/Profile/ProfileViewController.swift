@@ -90,6 +90,5 @@ class ProfileViewController: UIViewController {
     @objc
     private func didExitButtonTap() {
         OAuth2TokenStorage().token = nil
-        print("Разлогинились, ключа нет: \(OAuth2TokenStorage().token)")
     }
 }

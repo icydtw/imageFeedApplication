@@ -89,6 +89,6 @@ class ProfileViewController: UIViewController {
     
     @objc
     private func didExitButtonTap() {
-        OAuth2TokenStorage().token = nil
+        OAuth2TokenStorage.shared.token = nil
     }
 }

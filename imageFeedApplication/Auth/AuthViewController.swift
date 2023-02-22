@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 protocol AuthViewControllerDelegate: AnyObject {
@@ -13,7 +12,7 @@ final class AuthViewController: UIViewController, UIWebViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == authViewID {
             guard let webViewViewController = segue.destination as? WebViewViewController else {
-                fatalError("Ошибка!")
+                return assertionFailure("Ошибка!")
             }
             webViewViewController.delegate = self
         } else {

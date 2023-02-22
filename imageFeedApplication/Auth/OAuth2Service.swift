@@ -1,10 +1,13 @@
 import Foundation
 
-let unsplashPostRequestURL = "https://unsplash.com/oauth/token"
+enum NetworkError: Error {
+    case decodeError(error: String)
+    case responseError(error: String)
+}
 
-class OAuth2Service {
+final class OAuth2Service {
     func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        var urlComponents = URLComponents(string: unsplashPostRequestURL)!
+        var urlComponents = URLComponents(string: UnsplashPostRequestURL)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: AccessKey),
             URLQueryItem(name: "client_secret", value: SecretKey),
@@ -23,7 +26,7 @@ class OAuth2Service {
             }
             if let response = response as? HTTPURLResponse,
                response.statusCode < 200 || response.statusCode >= 300 {
-                completion(.failure("Ошибка номер \(response.statusCode)" as! Error))
+                completion(.failure(NetworkError.responseError(error: "Response error: \(response.statusCode)")))
                 return
             }
             guard let data = data else { return }
@@ -31,7 +34,7 @@ class OAuth2Service {
                 let successResult = try decoder.decode(OAuthTokenResponseBody.self, from: data)
                 completion(.success(successResult.accessToken))
             } catch {
-                completion(.failure("Ошибка обработки данных" as! Error))
+                completion(.failure(NetworkError.decodeError(error: "Decode error")))
             }
         }
         task.resume()

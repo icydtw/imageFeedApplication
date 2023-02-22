@@ -5,8 +5,8 @@ protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
 }
 
-class AuthViewController: UIViewController, UIWebViewDelegate {
-    let authViewID = "ShowWebView"
+final class AuthViewController: UIViewController, UIWebViewDelegate {
+    private let authViewID = "ShowWebView"
     
     var delegate: AuthViewControllerDelegate?
     

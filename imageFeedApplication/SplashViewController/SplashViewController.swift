@@ -1,7 +1,6 @@
-import Foundation
 import UIKit
 
-class SplashViewController: UIViewController {
+final class SplashViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,7 +54,7 @@ extension SplashViewController {
             guard
                 let navigationController = segue.destination as? UINavigationController,
                 let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
+            else { return assertionFailure("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
             viewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)

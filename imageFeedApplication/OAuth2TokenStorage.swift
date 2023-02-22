@@ -1,7 +1,7 @@
 import Foundation
 
-class OAuth2TokenStorage {
-    let userDefaults = UserDefaults.standard
+final class OAuth2TokenStorage {
+    private let userDefaults = UserDefaults.standard
     var token: String? {
         get {
             userDefaults.string(forKey: "token")

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B40121412967DE640055F198 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40121402967DE640055F198 /* SingleImageViewController.swift */; };
 		B434BAD42952F5E3002F8A02 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B434BAD32952F5E3002F8A02 /* ProfileViewController.swift */; };
+		B455331A29A8D02200E81D44 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = B455331929A8D02200E81D44 /* ProgressHUD */; };
 		B48A9BFE29717F770073DF76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A9BFD29717F770073DF76 /* Constants.swift */; };
 		B49B9302298CC8A400627169 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B9301298CC8A400627169 /* AuthViewController.swift */; };
 		B49B9305298CC9AC00627169 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B9304298CC9AC00627169 /* WebViewViewController.swift */; };
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B455331A29A8D02200E81D44 /* ProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +166,9 @@
 			dependencies = (
 			);
 			name = imageFeedApplication;
+			packageProductDependencies = (
+				B455331929A8D02200E81D44 /* ProgressHUD */,
+			);
 			productName = imageFeedApplication;
 			productReference = B4F1757E2951A4540037E886 /* imageFeedApplication.app */;
 			productType = "com.apple.product-type.application";
@@ -192,6 +197,9 @@
 				Base,
 			);
 			mainGroup = B4F175752951A4540037E886;
+			packageReferences = (
+				B455331829A8D02200E81D44 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+			);
 			productRefGroup = B4F1757F2951A4540037E886 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,7 +316,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -362,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -458,6 +466,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B455331829A8D02200E81D44 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = exactVersion;
+				version = 13.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B455331929A8D02200E81D44 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B455331829A8D02200E81D44 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B4F175762951A4540037E886 /* Project object */;
 }

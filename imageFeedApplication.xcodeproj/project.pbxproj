@@ -86,6 +86,7 @@
 		B49B9303298CC8C900627169 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				B4B191D5299F8F8300FA60A7 /* OAuth2TokenStorage.swift */,
 				B49B9301298CC8A400627169 /* AuthViewController.swift */,
 				B49B9304298CC9AC00627169 /* WebViewViewController.swift */,
 				B49B9306298CD8AF00627169 /* WebViewViewControllerDelegate.swift */,
@@ -123,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				B4B191D729A366BD00FA60A7 /* SplashViewController */,
-				B4B191D5299F8F8300FA60A7 /* OAuth2TokenStorage.swift */,
 				B49B9303298CC8C900627169 /* Auth */,
 				B48A9C0029717F9F0073DF76 /* Constants */,
 				B48A9BFF29717F8D0073DF76 /* SingleImage */,

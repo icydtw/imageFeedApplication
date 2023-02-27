@@ -44,6 +44,7 @@ final class OAuth2Service {
                 DispatchQueue.main.async {
                     completion(.failure(error))
                     self.lastCode = nil
+                    self.task = nil
                 }
                 return
             }
@@ -53,6 +54,7 @@ final class OAuth2Service {
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError.responseError(error: "Response error: \(response.statusCode)")))
                     self.lastCode = nil
+                    self.task = nil
                 }
                 return
             }
@@ -68,6 +70,7 @@ final class OAuth2Service {
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError.decodeError(error: "Decode error")))
                     self.lastCode = nil
+                    self.task = nil
                 }
             }
         }

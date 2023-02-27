@@ -26,7 +26,7 @@ final class SplashViewController: UIViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        ProgressHUD.show()
+        UIBlockingProgressHUD.show()
         dismiss(animated: false) { [weak self] in
             guard let self = self else { return }
             self.fetchOAuthToken(code)
@@ -41,9 +41,9 @@ extension SplashViewController: AuthViewControllerDelegate {
                 case .success(let accessKey):
                     OAuth2TokenStorage.shared.token = accessKey
                     self.switchToTabBar()
-                    ProgressHUD.dismiss()
+                    UIBlockingProgressHUD.dismiss()
                 case .failure(_):
-                    ProgressHUD.dismiss()
+                    UIBlockingProgressHUD.dismiss()
                     return
                 }
             }

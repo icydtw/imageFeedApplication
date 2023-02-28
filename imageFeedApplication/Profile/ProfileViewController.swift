@@ -31,21 +31,21 @@ class ProfileViewController: UIViewController {
     
     private func setupUsernameLabel() {
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.text = "Илья Тимченко"
+        usernameLabel.text = "Загрузка..."
         usernameLabel.textColor = .white
         usernameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
     }
     
     private func setupNicknameLabel() {
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nicknameLabel.text = "@icydtw"
+        nicknameLabel.text = "Загрузка..."
         nicknameLabel.textColor = UIColor(named: "YP Gray")
         nicknameLabel.font = UIFont.systemFont(ofSize: 13)
     }
     
     private func setupStatusLabel() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.text = "Hello, world!"
+        statusLabel.text = "Загрузка..."
         statusLabel.textColor = .white
         statusLabel.font = UIFont.systemFont(ofSize: 13)
     }
@@ -93,12 +93,10 @@ class ProfileViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let profile):
-                print("SUCCESS")
                 self.usernameLabel.text = profile.name
-                self.nicknameLabel.text = profile.username
+                self.nicknameLabel.text = profile.loginName
                 self.statusLabel.text = profile.bio
             case .failure(_):
-                print("NOT SUCCESS")
                 return
             }
         }

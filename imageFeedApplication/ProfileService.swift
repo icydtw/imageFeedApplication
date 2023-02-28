@@ -7,9 +7,9 @@ enum ProfileResultsError: Error {
 
 struct ProfileResult: Codable {
     var userName: String
-    var firstName: String
-    var lastName: String
-    var bio: String
+    var firstName: String?
+    var lastName: String?
+    var bio: String?
     
     private enum CodingKeys: String, CodingKey {
         case userName = "username"
@@ -46,7 +46,6 @@ final class ProfileService {
         let task = urlSession.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
-                    print("ПРОБЛЕМА 1")
                     completion(.failure(ProfileResultsError.dataError))
                     self.task = nil
                 }
@@ -54,7 +53,6 @@ final class ProfileService {
             }
             
             do {
-                print("НЕТ ПРОБЛЕМ")
                 let decoder = JSONDecoder()
                 let userProfile = try decoder.decode(ProfileResult.self, from: data)
                 DispatchQueue.main.async {
@@ -63,8 +61,7 @@ final class ProfileService {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    print("ПРОБЛЕМА 2")
-                    completion(.failure(ProfileResultsError.dataError))
+                    completion(.success(Profile(username: "ERROR", name: "ERROR", loginName: "ERROR", bio: "ERROR")))
                     self.task = nil
                 }
             }
@@ -75,7 +72,7 @@ final class ProfileService {
     
     private func convertToProfile(_ profileResult: ProfileResult) -> Profile {
         let username = profileResult.userName
-        let name = "\(profileResult.firstName) \(profileResult.lastName)"
+        let name = "\(profileResult.firstName ?? "") \(profileResult.lastName ?? "")"
         let loginName = "@\(profileResult.userName)"
         let bio = profileResult.bio
         return Profile(username: username, name: name, loginName: loginName, bio: bio)

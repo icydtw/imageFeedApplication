@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
         setupStatusLabel()
         setupExitButton()
         setupLayout()
+        fetchProfile()
     }
     
     //Функции с кодом вёрстки
@@ -83,5 +84,23 @@ class ProfileViewController: UIViewController {
     @objc
     private func didExitButtonTap() {
         OAuth2TokenStorage.shared.token = nil
+    }
+    
+    private func fetchProfile() {
+        let profileService = ProfileService()
+        guard let token = OAuth2TokenStorage.shared.token else { return }
+        profileService.fetchProfile(token) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                print("SUCCESS")
+                self.usernameLabel.text = profile.name
+                self.nicknameLabel.text = profile.username
+                self.statusLabel.text = profile.bio
+            case .failure(_):
+                print("NOT SUCCESS")
+                return
+            }
+        }
     }
 }

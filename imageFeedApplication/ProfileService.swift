@@ -16,6 +16,12 @@ struct ProfileResult: Codable {
     }
 }
 
-final class ProfileService {
+struct Profile {
     
+}
+
+final class ProfileService {
+    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
+        
+    }
 }

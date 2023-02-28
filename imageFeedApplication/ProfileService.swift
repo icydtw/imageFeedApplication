@@ -61,7 +61,7 @@ final class ProfileService {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.success(Profile(username: "ERROR", name: "ERROR", loginName: "ERROR", bio: "ERROR")))
+                    completion(.success(Profile(username: "Ошибка загрузки", name: "Ошибка загрузки", loginName: "Ошибка загрузки", bio: "Ошибка загрузки")))
                     self.task = nil
                 }
             }

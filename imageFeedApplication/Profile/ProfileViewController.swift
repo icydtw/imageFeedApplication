@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
         setupStatusLabel()
         setupExitButton()
         setupLayout()
+        
         fetchProfile()
     }
     
@@ -87,6 +88,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func fetchProfile() {
+        UIBlockingProgressHUD.show()
         let profileService = ProfileService()
         guard let token = OAuth2TokenStorage.shared.token else { return }
         profileService.fetchProfile(token) { [weak self] result in
@@ -96,7 +98,9 @@ class ProfileViewController: UIViewController {
                 self.usernameLabel.text = profile.name
                 self.nicknameLabel.text = profile.loginName
                 self.statusLabel.text = profile.bio
+                UIBlockingProgressHUD.dismiss()
             case .failure(_):
+                UIBlockingProgressHUD.dismiss()
                 return
             }
         }

@@ -87,8 +87,16 @@ class ProfileViewController: UIViewController {
         ])
     }
     
+    private func logOut() {
+        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+        let splashScreen = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "SplashScreenID")
+        window.rootViewController = splashScreen
+    }
+    
     @objc
     private func didExitButtonTap() {
         OAuth2TokenStorage.shared.token = nil
+        logOut()
     }
 }

@@ -29,6 +29,8 @@ struct Profile {
 final class ProfileService {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
+    private(set) var profile: Profile?
+    static let shared = ProfileService()
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
@@ -56,7 +58,8 @@ final class ProfileService {
                 let decoder = JSONDecoder()
                 let userProfile = try decoder.decode(ProfileResult.self, from: data)
                 DispatchQueue.main.async {
-                    completion(.success(self.convertToProfile(userProfile)))
+                    ProfileService.shared.profile = self.convertToProfile(userProfile)
+                    completion(.success(self.convertToProfile(userProfile))) ///???
                     self.task = nil
                 }
             } catch {

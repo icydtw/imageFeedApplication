@@ -16,8 +16,13 @@ class ProfileViewController: UIViewController {
         setupStatusLabel()
         setupExitButton()
         setupLayout()
-        
-        fetchProfile()
+        updateProfileDetails(profile: ProfileService.shared.profile ?? Profile())
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        usernameLabel.text = profile.name
+        nicknameLabel.text = profile.loginName
+        statusLabel.text = profile.bio
     }
     
     //Функции с кодом вёрстки

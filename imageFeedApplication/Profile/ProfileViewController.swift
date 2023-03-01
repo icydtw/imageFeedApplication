@@ -86,23 +86,4 @@ class ProfileViewController: UIViewController {
     private func didExitButtonTap() {
         OAuth2TokenStorage.shared.token = nil
     }
-    
-    private func fetchProfile() {
-        UIBlockingProgressHUD.show()
-        let profileService = ProfileService()
-        guard let token = OAuth2TokenStorage.shared.token else { return }
-        profileService.fetchProfile(token) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let profile):
-                self.usernameLabel.text = profile.name
-                self.nicknameLabel.text = profile.loginName
-                self.statusLabel.text = profile.bio
-                UIBlockingProgressHUD.dismiss()
-            case .failure(_):
-                UIBlockingProgressHUD.dismiss()
-                return
-            }
-        }
-    }
 }

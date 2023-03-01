@@ -3,6 +3,7 @@ import ProgressHUD
 
 final class SplashViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let profileService = ProfileService()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -14,7 +15,7 @@ final class SplashViewController: UIViewController {
         }
     }
     
-     private func switchToTabBar() {
+    private func switchToTabBar() {
         DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
             let tabBarController = UIStoryboard(name: "Main", bundle: .main)
@@ -26,27 +27,40 @@ final class SplashViewController: UIViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        UIBlockingProgressHUD.show()
         dismiss(animated: false) { [weak self] in
             guard let self = self else { return }
+            UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
         }
     }
     
     private func fetchOAuthToken(_ code: String) {
         let auth = OAuth2Service()
-            auth.fetchAuthToken(code: code) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let accessKey):
-                    OAuth2TokenStorage.shared.token = accessKey
-                    self.switchToTabBar()
-                    UIBlockingProgressHUD.dismiss()
-                case .failure(_):
-                    UIBlockingProgressHUD.dismiss()
-                    return
-                }
+        auth.fetchAuthToken(code: code) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let token):
+                OAuth2TokenStorage.shared.token = token
+                self.fetchProfile(token: token)
+            case .failure(_):
+                UIBlockingProgressHUD.dismiss()
+                return
             }
+        }
+    }
+    
+    private func fetchProfile(token: String) {
+        profileService.fetchProfile(token) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                UIBlockingProgressHUD.dismiss()
+                self.switchToTabBar()
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                return
+            }
+        }
     }
 }
 

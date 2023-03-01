@@ -69,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				B434BAD32952F5E3002F8A02 /* ProfileViewController.swift */,
+				B491F96029ADDEEB00F11204 /* ProfileService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -129,8 +130,6 @@
 		B4F175802951A4540037E886 /* imageFeedApplication */ = {
 			isa = PBXGroup;
 			children = (
-				B491F95E29ACC1A000F11204 /* UIBlockingProgressHUD.swift */,
-				B491F96029ADDEEB00F11204 /* ProfileService.swift */,
 				B4B191D729A366BD00FA60A7 /* SplashViewController */,
 				B49B9303298CC8C900627169 /* Auth */,
 				B48A9C0029717F9F0073DF76 /* Constants */,
@@ -139,6 +138,7 @@
 				B4F1759A2951BAF40037E886 /* ImagesList */,
 				B4F175812951A4540037E886 /* AppDelegate.swift */,
 				B4F175832951A4540037E886 /* SceneDelegate.swift */,
+				B491F95E29ACC1A000F11204 /* UIBlockingProgressHUD.swift */,
 				B4F175872951A4540037E886 /* Main.storyboard */,
 				B4F1758C2951A4550037E886 /* LaunchScreen.storyboard */,
 				B4F1758A2951A4550037E886 /* Assets.xcassets */,

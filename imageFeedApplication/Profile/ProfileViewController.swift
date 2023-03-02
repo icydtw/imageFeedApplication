@@ -7,6 +7,7 @@ class ProfileViewController: UIViewController {
     private let nicknameLabel = UILabel()
     private let statusLabel = UILabel()
     private let exitButtonView = UIButton()
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,26 @@ class ProfileViewController: UIViewController {
         setupExitButton()
         setupLayout()
         updateProfileDetails(profile: ProfileService.shared.profile ?? Profile())
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+        
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
     }
     
     private func updateProfileDetails(profile: Profile) {

@@ -26,6 +26,7 @@ final class ProfileImageService {
     private (set) var avatarURL: String?
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
+    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange") //имя нотификации
     
     func fetchProfileImageURL(token: String, username: String, _ completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
@@ -58,8 +59,8 @@ final class ProfileImageService {
                         return
                     }
                     self.avatarURL = usersImage
-                    print(self.avatarURL)
                     completion(.success(usersImage))
+                    NotificationCenter.default.post(name: ProfileImageService.DidChangeNotification, object: self, userInfo: ["URL" : self.avatarURL])
                 }
             } catch {
                 DispatchQueue.main.async {

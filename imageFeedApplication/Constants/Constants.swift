@@ -8,3 +8,4 @@ let DefaultBaseURL = URL(string: "https://api.unsplash.com")
 let UnsplashPostRequestURL = "https://unsplash.com/oauth/token"
 let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
 let GetProfileURL = "https://api.unsplash.com/me"
+let GetProfileImageURL = "https://api.unsplash.com/users/"

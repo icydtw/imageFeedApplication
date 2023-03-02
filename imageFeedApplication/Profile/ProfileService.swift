@@ -59,7 +59,7 @@ final class ProfileService {
                 let userProfile = try decoder.decode(ProfileResult.self, from: data)
                 DispatchQueue.main.async {
                     ProfileService.shared.profile = self.convertToProfile(userProfile)
-                    completion(.success(self.convertToProfile(userProfile))) ///???
+                    completion(.success(self.convertToProfile(userProfile)))
                     self.task = nil
                 }
             } catch {

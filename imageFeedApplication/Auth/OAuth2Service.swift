@@ -40,41 +40,22 @@ final class OAuth2Service {
         let decoder = JSONDecoder()
         
         lastCode = code
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                    self.lastCode = nil
-                    self.task = nil
-                }
+        
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+            guard let self = self else {
+                print("ERROR SELF")
                 return
             }
             
-            if let response = response as? HTTPURLResponse,
-               response.statusCode < 200 || response.statusCode >= 300 {
-                DispatchQueue.main.async {
-                    completion(.failure(NetworkError.responseError(error: "Response error: \(response.statusCode)")))
-                    self.lastCode = nil
-                    self.task = nil
-                }
-                return
+            switch result {
+            case .success(let responseBody):
+                completion(.success(responseBody.accessToken))
+            case .failure(let error):
+                completion(.failure(error))
             }
-            
-            guard let data = data else { return }
-            do {
-                let successResult = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(successResult.accessToken))
-                    self.task = nil
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(NetworkError.decodeError(error: "Decode error")))
-                    self.lastCode = nil
-                    self.task = nil
-                }
-            }
+            self.task = nil
         }
+        
         self.task = task
         task.resume()
     }

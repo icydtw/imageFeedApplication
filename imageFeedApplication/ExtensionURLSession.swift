@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 extension URLSession {
     func objectTask<T: Decodable>(for request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
@@ -17,7 +18,7 @@ extension URLSession {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure("Ошибка в URLSession при обработке данных" as! Error))
+                    completion(.failure(error))
                 }
             }
         }

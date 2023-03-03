@@ -39,13 +39,16 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchOAuthToken(_ code: String) {
         auth.fetchAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let token):
-                OAuth2TokenStorage.shared.token = token
-                self.fetchProfile(token: token)
-            case .failure(_):
-                UIBlockingProgressHUD.dismiss()
-                return
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let token):
+                    OAuth2TokenStorage.shared.token = token
+                    self.fetchProfile(token: token)
+                case .failure(_):
+                    self.topMostController().present(self.showAlert(), animated: true)
+                    UIBlockingProgressHUD.dismiss()
+                    return
+                }
             }
         }
     }
@@ -53,14 +56,16 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfile(token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let profile):
-                ProfileImageService.shared.fetchProfileImageURL(token: token, username: profile.username ?? "") { _ in }
-                UIBlockingProgressHUD.dismiss()
-                self.switchToTabBar()
-            case .failure:
-                UIBlockingProgressHUD.dismiss()
-                return
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let profile):
+                    ProfileImageService.shared.fetchProfileImageURL(token: token, username: profile.username ?? "") { _ in }
+                    UIBlockingProgressHUD.dismiss()
+                    self.switchToTabBar()
+                case .failure:
+                    UIBlockingProgressHUD.dismiss()
+                    return
+                }
             }
         }
     }
@@ -77,5 +82,23 @@ extension SplashViewController {
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+}
+
+extension SplashViewController {
+    func showAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ок", style: .cancel)
+        alert.addAction(action)
+        self.view.layer.backgroundColor = UIColor(named: "YP Black")?.cgColor
+        return alert
+    }
+    
+    func topMostController() -> UIViewController {
+        var topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!
+        while (topController.presentedViewController != nil) {
+            topController = topController.presentedViewController!
+        }
+        return topController
     }
 }

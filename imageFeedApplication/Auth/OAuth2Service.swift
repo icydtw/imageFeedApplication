@@ -31,7 +31,7 @@ final class OAuth2Service {
             URLQueryItem(name: "client_secret", value: SecretKey),
             URLQueryItem(name: "redirect_uri", value: RedirectURI),
             URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code")
+            URLQueryItem(name: "grant_type", value: "authorization_code1")
         ]
         
         let url = urlComponents.url!
@@ -41,11 +41,13 @@ final class OAuth2Service {
         
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
             guard let self = self else { return }
-            switch result {
-            case .success(let responseBody):
-                completion(.success(responseBody.accessToken))
-            case .failure(let error):
-                completion(.failure(error))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let responseBody):
+                    completion(.success(responseBody.accessToken))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
             self.task = nil
         }

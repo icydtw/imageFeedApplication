@@ -9,6 +9,7 @@ final class OAuth2Service {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastCode: String?
+    static let shared = OAuth2Service()
     
     func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
@@ -36,17 +37,10 @@ final class OAuth2Service {
         let url = urlComponents.url!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        
-        let decoder = JSONDecoder()
-        
         lastCode = code
         
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
-            guard let self = self else {
-                print("ERROR SELF")
-                return
-            }
-            
+            guard let self = self else { return }
             switch result {
             case .success(let responseBody):
                 completion(.success(responseBody.accessToken))

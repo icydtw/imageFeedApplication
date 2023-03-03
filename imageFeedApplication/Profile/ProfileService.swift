@@ -45,30 +45,19 @@ final class ProfileService {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                DispatchQueue.main.async {
-                    completion(.failure(ProfileResultsError.dataError))
-                    self.task = nil
-                }
-                return
-            }
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+            guard let self = self else {print("ERRORORROR"); return }
             
-            do {
-                let decoder = JSONDecoder()
-                let userProfile = try decoder.decode(ProfileResult.self, from: data)
-                DispatchQueue.main.async {
-                    ProfileService.shared.profile = self.convertToProfile(userProfile)
-                    completion(.success(self.convertToProfile(userProfile)))
-                    self.task = nil
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.success(Profile(username: "Ошибка загрузки", name: "Ошибка загрузки", loginName: "Ошибка загрузки", bio: "Ошибка загрузки")))
-                    self.task = nil
-                }
+            switch result {
+            case .success(let responseBody):
+                self.profile = self.convertToProfile(responseBody)
+                completion(.success(self.convertToProfile(responseBody)))
+            case .failure(let error):
+                completion(.failure(error))
             }
+            self.task = nil
         }
+        
         self.task = task
         task.resume()
     }

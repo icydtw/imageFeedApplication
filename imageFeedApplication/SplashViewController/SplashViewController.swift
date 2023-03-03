@@ -3,7 +3,8 @@ import ProgressHUD
 
 final class SplashViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    private let profileService = ProfileService()
+    private let profileService = ProfileService.shared
+    private let auth = OAuth2Service.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -36,7 +37,6 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchOAuthToken(_ code: String) {
-        let auth = OAuth2Service()
         auth.fetchAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }
             switch result {

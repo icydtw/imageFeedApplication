@@ -41,32 +41,20 @@ final class ProfileImageService {
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                DispatchQueue.main.async {
-                    completion(.failure(getProfileImageError.dataError))
-                    self.task = nil
-                }
-                return
-            }
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
+            guard let self = self else { return }
             
-            do {
-                let decoder = JSONDecoder()
-                let result = try decoder.decode(UserResult.self, from: data)
-                DispatchQueue.main.async {
-                    guard let usersImage = result.profileImages?["small"] else {
-                        completion(.failure(getProfileImageError.imageError))
-                        return
-                    }
-                    self.avatarURL = usersImage
-                    completion(.success(usersImage))
-                    NotificationCenter.default.post(name: ProfileImageService.DidChangeNotification, object: self, userInfo: ["URL" : self.avatarURL])
+            switch result {
+            case .success(let success):
+                guard let usersImage = success.profileImages?["small"] else {
+                    completion(.failure(getProfileImageError.imageError))
+                    return
                 }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(getProfileImageError.dataError))
-                    self.task = nil
-                }
+                self.avatarURL = usersImage
+                completion(.success(usersImage))
+                NotificationCenter.default.post(name: ProfileImageService.DidChangeNotification, object: self, userInfo: ["URL" : self.avatarURL])
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
         self.task = task

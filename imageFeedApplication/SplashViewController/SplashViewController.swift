@@ -5,6 +5,7 @@ final class SplashViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let profileService = ProfileService.shared
     private let auth = OAuth2Service.shared
+    private let rootController = UIApplication.shared.windows.first?.rootViewController
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -22,14 +23,19 @@ final class SplashViewController: UIViewController {
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
     }
+    
+    private func switchToAuthViewController() {
+        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+        let authViewController = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "AuthViewControllerID")
+        window.rootViewController = authViewController
+    }
 }
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.fetchOAuthToken(code)
-        }
+        switchToAuthViewController()
+        fetchOAuthToken(code)
         UIBlockingProgressHUD.show()
     }
     
@@ -40,8 +46,8 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let token):
                 self.fetchProfile(token: token)
             case .failure(_):
-                //self.topMostController().present(self.showAlert(), animated: true)
                 UIBlockingProgressHUD.dismiss()
+                UIApplication.shared.windows.first?.rootViewController?.present(self.showAlert(), animated: true)
                 return
             }
         }

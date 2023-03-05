@@ -17,10 +17,10 @@ final class SplashViewController: UIViewController {
     }
     
     private func switchToTabBar() {
-            guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
-            let tabBarController = UIStoryboard(name: "Main", bundle: .main)
-                .instantiateViewController(withIdentifier: "TabBarViewController")
-            window.rootViewController = tabBarController
+        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+        let tabBarController = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "TabBarViewController")
+        window.rootViewController = tabBarController
     }
 }
 
@@ -36,29 +36,29 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchOAuthToken(_ code: String) {
         auth.fetchAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }
-                switch result {
-                case .success(let token):
-                    self.fetchProfile(token: token)
-                case .failure(_):
-                    self.topMostController().present(self.showAlert(), animated: true)
-                    UIBlockingProgressHUD.dismiss()
-                    return
-                }
+            switch result {
+            case .success(let token):
+                self.fetchProfile(token: token)
+            case .failure(_):
+                self.topMostController().present(self.showAlert(), animated: true)
+                UIBlockingProgressHUD.dismiss()
+                return
+            }
         }
     }
     
     private func fetchProfile(token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
-                switch result {
-                case .success(let profile):
-                    ProfileImageService.shared.fetchProfileImageURL(token: token, username: profile.username ?? "") { _ in }
-                    UIBlockingProgressHUD.dismiss()
-                    self.switchToTabBar()
-                case .failure:
-                    UIBlockingProgressHUD.dismiss()
-                    return
-                }
+            switch result {
+            case .success(let profile):
+                ProfileImageService.shared.fetchProfileImageURL(token: token, username: profile.username ?? "") { _ in }
+                UIBlockingProgressHUD.dismiss()
+                self.switchToTabBar()
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                return
+            }
         }
     }
 }

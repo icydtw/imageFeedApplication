@@ -31,7 +31,7 @@ final class OAuth2Service {
             URLQueryItem(name: "client_secret", value: SecretKey),
             URLQueryItem(name: "redirect_uri", value: RedirectURI),
             URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code1")
+            URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
         
         let url = urlComponents.url!
@@ -44,6 +44,7 @@ final class OAuth2Service {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let responseBody):
+                    OAuth2TokenStorage.shared.token = responseBody.accessToken
                     completion(.success(responseBody.accessToken))
                 case .failure(let error):
                     completion(.failure(error))

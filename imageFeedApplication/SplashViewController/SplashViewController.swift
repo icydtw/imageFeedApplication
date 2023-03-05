@@ -11,7 +11,6 @@ final class SplashViewController: UIViewController {
         
         if let token =  OAuth2TokenStorage.shared.token {
             fetchProfile(token: token)
-            switchToTabBar()
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -42,7 +41,6 @@ extension SplashViewController: AuthViewControllerDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let token):
-                    OAuth2TokenStorage.shared.token = token
                     self.fetchProfile(token: token)
                 case .failure(_):
                     self.topMostController().present(self.showAlert(), animated: true)

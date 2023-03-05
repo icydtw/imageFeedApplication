@@ -40,7 +40,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let token):
                 self.fetchProfile(token: token)
             case .failure(_):
-                self.topMostController().present(self.showAlert(), animated: true)
+                //self.topMostController().present(self.showAlert(), animated: true)
                 UIBlockingProgressHUD.dismiss()
                 return
             }

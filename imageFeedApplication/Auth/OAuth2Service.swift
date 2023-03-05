@@ -47,11 +47,12 @@ final class OAuth2Service {
                 case .success(let responseBody):
                     OAuth2TokenStorage.shared.token = responseBody.accessToken
                     completion(.success(responseBody.accessToken))
+                    self.task = nil
                 case .failure(let error):
                     completion(.failure(error))
+                    self.task = nil
                 }
             }
-            self.task = nil
         }
         self.task = task
         task.resume()

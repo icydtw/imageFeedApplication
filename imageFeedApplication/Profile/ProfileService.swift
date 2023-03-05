@@ -47,17 +47,18 @@ final class ProfileService {
         
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             guard let self = self else {print("ERRORORROR"); return }
-            
-            switch result {
-            case .success(let responseBody):
-                self.profile = self.convertToProfile(responseBody)
-                completion(.success(self.convertToProfile(responseBody)))
-            case .failure(let error):
-                completion(.failure(error))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let responseBody):
+                    self.profile = self.convertToProfile(responseBody)
+                    completion(.success(self.convertToProfile(responseBody)))
+                    self.task = nil
+                case .failure(let error):
+                    completion(.failure(error))
+                    self.task = nil
+                }
             }
-            self.task = nil
         }
-        
         self.task = task
         task.resume()
     }

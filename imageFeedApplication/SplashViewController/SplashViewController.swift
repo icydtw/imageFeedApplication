@@ -17,12 +17,10 @@ final class SplashViewController: UIViewController {
     }
     
     private func switchToTabBar() {
-        DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
             let tabBarController = UIStoryboard(name: "Main", bundle: .main)
                 .instantiateViewController(withIdentifier: "TabBarViewController")
             window.rootViewController = tabBarController
-        }
     }
 }
 
@@ -38,7 +36,6 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchOAuthToken(_ code: String) {
         auth.fetchAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async {
                 switch result {
                 case .success(let token):
                     self.fetchProfile(token: token)
@@ -47,14 +44,12 @@ extension SplashViewController: AuthViewControllerDelegate {
                     UIBlockingProgressHUD.dismiss()
                     return
                 }
-            }
         }
     }
     
     private func fetchProfile(token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async {
                 switch result {
                 case .success(let profile):
                     ProfileImageService.shared.fetchProfileImageURL(token: token, username: profile.username ?? "") { _ in }
@@ -64,7 +59,6 @@ extension SplashViewController: AuthViewControllerDelegate {
                     UIBlockingProgressHUD.dismiss()
                     return
                 }
-            }
         }
     }
 }

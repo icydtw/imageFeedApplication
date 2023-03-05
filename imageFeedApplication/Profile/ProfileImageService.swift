@@ -43,18 +43,19 @@ final class ProfileImageService {
         
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             guard let self = self else { return }
-            
-            switch result {
-            case .success(let success):
-                guard let usersImage = success.profileImages?["small"] else {
-                    completion(.failure(getProfileImageError.imageError))
-                    return
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    guard let usersImage = success.profileImages?["small"] else {
+                        completion(.failure(getProfileImageError.imageError))
+                        return
+                    }
+                    self.avatarURL = usersImage
+                    completion(.success(usersImage))
+                    NotificationCenter.default.post(name: ProfileImageService.DidChangeNotification, object: self, userInfo: ["URL" : self.avatarURL])
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-                self.avatarURL = usersImage
-                completion(.success(usersImage))
-                NotificationCenter.default.post(name: ProfileImageService.DidChangeNotification, object: self, userInfo: ["URL" : self.avatarURL])
-            case .failure(let error):
-                completion(.failure(error))
             }
         }
         self.task = task

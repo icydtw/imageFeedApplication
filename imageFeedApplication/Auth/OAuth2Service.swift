@@ -32,7 +32,7 @@ final class OAuth2Service {
             URLQueryItem(name: "client_secret", value: SecretKey),
             URLQueryItem(name: "redirect_uri", value: RedirectURI),
             URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code1")
+            URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
         
         let url = urlComponents.url!

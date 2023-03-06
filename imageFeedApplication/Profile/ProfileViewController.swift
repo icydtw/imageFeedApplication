@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     private let profilePicture = UIImageView()
@@ -29,15 +30,11 @@ class ProfileViewController: UIViewController {
                 self.updateAvatar()
             }
         updateAvatar()
-        
     }
     
     private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+        guard let profileImageURL = ProfileImageService.shared.avatarURL, let url = URL(string: profileImageURL) else { return }
+        profilePicture.kf.setImage(with: url)
     }
     
     private func updateProfileDetails(profile: Profile) {

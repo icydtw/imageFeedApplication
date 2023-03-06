@@ -46,7 +46,7 @@ final class ProfileImageService {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
-                    guard let usersImage = success.profileImages?["small"] else {
+                    guard let usersImage = success.profileImages?["medium"] else {
                         completion(.failure(getProfileImageError.imageError))
                         return
                     }

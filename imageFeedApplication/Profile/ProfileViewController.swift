@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
     
     private func updateAvatar() {
         guard let profileImageURL = ProfileImageService.shared.avatarURL, let url = URL(string: profileImageURL) else { return }
-        profilePicture.kf.setImage(with: url)
+        profilePicture.kf.setImage(with: url, placeholder: UIImage(systemName: "face.smiling"))
     }
     
     private func updateProfileDetails(profile: Profile) {

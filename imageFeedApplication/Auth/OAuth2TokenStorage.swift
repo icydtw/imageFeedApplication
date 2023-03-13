@@ -1,17 +1,23 @@
 import Foundation
+import SwiftKeychainWrapper
+
+enum tokenErrors: Error {
+    case savingError
+    case retrievingError
+}
 
 final class OAuth2TokenStorage {
-    private let userDefaults = UserDefaults.standard
+    private let keychainWrapper = KeychainWrapper.standard
     static let shared = OAuth2TokenStorage()
     
     private init() {}
     
     var token: String? {
         get {
-            userDefaults.string(forKey: "token")
+            keychainWrapper.string(forKey: "Auth token")
         }
         set {
-            userDefaults.set(newValue, forKey: "token")
+            keychainWrapper.set(newValue ?? "", forKey: "Auth token")
         }
     }
 }

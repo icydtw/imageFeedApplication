@@ -1,11 +1,6 @@
 import Foundation
 import UIKit
 
-enum NetworkError: Error {
-    case decodeError(error: String)
-    case responseError(error: String)
-}
-
 final class OAuth2Service {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?

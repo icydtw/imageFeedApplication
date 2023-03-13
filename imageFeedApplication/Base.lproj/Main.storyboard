@@ -115,22 +115,6 @@
             </objects>
             <point key="canvasLocation" x="1014.5038167938931" y="-430.28169014084511"/>
         </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="Oca-M8-Vfz">
-            <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="Tg2-ed-tra" customClass="ProfileViewController" customModule="imageFeedApplication" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bC8-Pv-u6U">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="bD8-MQ-YRM"/>
-                        <color key="backgroundColor" name="YP Black"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="tFa-TF-JUf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a2k-YX-bbM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1014.5038167938931" y="257.74647887323943"/>
-        </scene>
         <!--Auth View Controller-->
         <scene sceneID="YjI-iF-ggV">
             <objects>
@@ -368,7 +352,6 @@
         <image name="logo_enter" width="60" height="60"/>
         <image name="nav_back_button" width="9" height="15.666666984558105"/>
         <image name="tab_editorial_active" width="20" height="22"/>
-        <image name="tab_profile_active" width="30" height="30"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

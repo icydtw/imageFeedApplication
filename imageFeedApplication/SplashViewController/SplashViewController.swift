@@ -6,6 +6,12 @@ final class SplashViewController: UIViewController {
     private let profileService = ProfileService.shared
     private let auth = OAuth2Service.shared
     private let rootController = UIApplication.shared.windows.first?.rootViewController
+    private let logoImage = UIImageView()
+    
+    override func viewDidLoad() {
+        
+        setupSplashScreen()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -13,7 +19,11 @@ final class SplashViewController: UIViewController {
         if let token =  OAuth2TokenStorage.shared.token {
             fetchProfile(token: token)
         } else {
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewControllerID") as? AuthViewController else { return }
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            present(authViewController, animated: true)
         }
     }
     
@@ -70,20 +80,6 @@ extension SplashViewController: AuthViewControllerDelegate {
 }
 
 extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { return assertionFailure("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
-    }
-}
-
-extension SplashViewController {
     func showAlert() -> UIAlertController {
         let alert = UIAlertController(title: "Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ок", style: .cancel)
@@ -92,11 +88,16 @@ extension SplashViewController {
         return alert
     }
     
-    func topMostController() -> UIViewController {
-        var topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!
-        while (topController.presentedViewController != nil) {
-            topController = topController.presentedViewController!
+    func setupSplashScreen() {
+        view.backgroundColor = UIColor(named: "YP Black")
+        if let image = UIImage(named: "logo_P") {
+            logoImage.image = image
         }
-        return topController
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logoImage)
+        NSLayoutConstraint.activate([
+            logoImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            logoImage.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        ])
     }
 }

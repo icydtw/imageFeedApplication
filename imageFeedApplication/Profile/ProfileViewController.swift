@@ -12,6 +12,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "YP Black")
         setupProfilePicture()
         setupUsernameLabel()
         setupNicknameLabel()
@@ -108,8 +109,7 @@ class ProfileViewController: UIViewController {
     
     private func logOut() {
         guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
-        let splashScreen = UIStoryboard(name: "Main", bundle: .main)
-            .instantiateViewController(withIdentifier: "SplashScreenID")
+        let splashScreen = SplashViewController()
         window.rootViewController = splashScreen
     }
     

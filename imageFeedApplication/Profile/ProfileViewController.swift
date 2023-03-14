@@ -1,12 +1,6 @@
-//
-//  ProfileViewController.swift
-//  imageFeedApplication
-//
-//  Created by Илья Тимченко on 21.12.2022.
-//
-
 import Foundation
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     private let profilePicture = UIImageView()
@@ -14,15 +8,41 @@ class ProfileViewController: UIViewController {
     private let nicknameLabel = UILabel()
     private let statusLabel = UILabel()
     private let exitButtonView = UIButton()
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "YP Black")
         setupProfilePicture()
         setupUsernameLabel()
         setupNicknameLabel()
         setupStatusLabel()
         setupExitButton()
         setupLayout()
+        updateProfileDetails(profile: ProfileService.shared.profile ?? Profile())
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        guard let profileImageURL = ProfileImageService.shared.avatarURL, let url = URL(string: profileImageURL) else { return }
+        profilePicture.kf.setImage(with: url, placeholder: UIImage(systemName: "face.smiling"))
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        usernameLabel.text = profile.name
+        nicknameLabel.text = profile.loginName
+        statusLabel.text = profile.bio
     }
     
     //Функции с кодом вёрстки
@@ -37,21 +57,21 @@ class ProfileViewController: UIViewController {
     
     private func setupUsernameLabel() {
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.text = "Илья Тимченко"
+        usernameLabel.text = "Загрузка..."
         usernameLabel.textColor = .white
         usernameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
     }
     
     private func setupNicknameLabel() {
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nicknameLabel.text = "@icydtw"
+        nicknameLabel.text = "Загрузка..."
         nicknameLabel.textColor = UIColor(named: "YP Gray")
         nicknameLabel.font = UIFont.systemFont(ofSize: 13)
     }
     
     private func setupStatusLabel() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.text = "Hello, world!"
+        statusLabel.text = "Загрузка..."
         statusLabel.textColor = .white
         statusLabel.font = UIFont.systemFont(ofSize: 13)
     }
@@ -87,8 +107,15 @@ class ProfileViewController: UIViewController {
         ])
     }
     
+    private func logOut() {
+        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+        let splashScreen = SplashViewController()
+        window.rootViewController = splashScreen
+    }
+    
     @objc
     private func didExitButtonTap() {
         OAuth2TokenStorage.shared.token = nil
+        logOut()
     }
 }

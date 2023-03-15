@@ -47,8 +47,30 @@ final class ImagesListService {
     private var lastLoadedPage: Int?
     private var urlSession = URLSession.shared
     private var task: URLSessionTask?
+    private var nextPage: Int?
     
     func fetchPhotosNextPage() {
+        if task != nil { return }
         
+        if let lastLoadedPage {
+            nextPage = lastLoadedPage + 1
+        } else {
+            nextPage = 1
+        }
+        
+        guard var urlComponents = URLComponents(string: GetPhotosURL) else { return }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "page", value: "\(nextPage)"),
+            URLQueryItem(name: "per_page", value: "5")
+        ]
+        guard let url = urlComponents.url else { return }
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(OAuth2TokenStorage.shared.token)", forHTTPHeaderField: "Authorization")
+        
+        let session = urlSession
+        session.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+            guard let self = self else { return }
+            
+        }
     }
 }

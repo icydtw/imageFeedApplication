@@ -1,61 +1,103 @@
 import UIKit
+import ProgressHUD
 
 final class SplashViewController: UIViewController {
-    private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let profileService = ProfileService.shared
+    private let auth = OAuth2Service.shared
+    private let rootController = UIApplication.shared.windows.first?.rootViewController
+    private let logoImage = UIImageView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupSplashScreen()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if OAuth2TokenStorage.shared.token != nil {
-            switchToTabBar()
+        if let token =  OAuth2TokenStorage.shared.token {
+            fetchProfile(token: token)
         } else {
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewControllerID") as? AuthViewController else { return }
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            present(authViewController, animated: true)
         }
     }
     
-     private func switchToTabBar() {
-        DispatchQueue.main.async {
-            guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
-            let tabBarController = UIStoryboard(name: "Main", bundle: .main)
-                .instantiateViewController(withIdentifier: "TabBarViewController")
-            window.rootViewController = tabBarController
-        }
+    private func switchToTabBar() {
+        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+        let tabBarController = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "TabBarViewController")
+        window.rootViewController = tabBarController
+    }
+    
+    private func switchToAuthViewController() {
+        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+        let authViewController = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "AuthViewControllerID")
+        window.rootViewController = authViewController
     }
 }
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        dismiss(animated: false) { [weak self] in
-            guard let self = self else { return }
-            self.fetchOAuthToken(code)
-        }
+        switchToAuthViewController()
+        fetchOAuthToken(code)
+        UIBlockingProgressHUD.show()
     }
     
     private func fetchOAuthToken(_ code: String) {
-        let auth = OAuth2Service()
-            auth.fetchAuthToken(code: code) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let accessKey):
-                    OAuth2TokenStorage.shared.token = accessKey
-                    self.switchToTabBar()
-                case .failure(_):
-                    return
-                }
+        auth.fetchAuthToken(code: code) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let token):
+                self.fetchProfile(token: token)
+            case .failure(_):
+                UIBlockingProgressHUD.dismiss()
+                UIApplication.shared.windows.first?.rootViewController?.present(self.showAlert(), animated: true)
+                return
             }
+        }
+    }
+    
+    private func fetchProfile(token: String) {
+        profileService.fetchProfile(token) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                ProfileImageService.shared.fetchProfileImageURL(token: token, username: profile.username ?? "") { _ in }
+                UIBlockingProgressHUD.dismiss()
+                self.switchToTabBar()
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                return
+            }
+        }
     }
 }
 
 extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { return assertionFailure("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
+    func showAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ок", style: .cancel)
+        alert.addAction(action)
+        self.view.layer.backgroundColor = UIColor(named: "YP Black")?.cgColor
+        return alert
+    }
+    
+    func setupSplashScreen() {
+        view.backgroundColor = UIColor(named: "YP Black")
+        if let image = UIImage(named: "logo_P") {
+            logoImage.image = image
         }
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logoImage)
+        NSLayoutConstraint.activate([
+            logoImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            logoImage.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        ])
     }
 }

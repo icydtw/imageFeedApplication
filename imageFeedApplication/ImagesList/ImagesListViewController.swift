@@ -2,10 +2,10 @@ import UIKit
 
 class ImagesListViewController: UIViewController {
     var ShowSingleImageSegueIdentifier = "ShowSingleImage"
-
     @IBOutlet private var tableView: UITableView!
+    private let photosName: [String] = Array(0..<5).map{ "\($0)" }
+    private var photos: [Photo] = []
     
-    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -16,6 +16,12 @@ class ImagesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        NotificationCenter.default.addObserver(forName: ImagesListService.notification, object: nil, queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+            self.photos = ImagesListService.shared.photos
+            print(self.photos)
+        }
+        ImagesListService.shared.fetchPhotosNextPage()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -51,7 +57,7 @@ extension ImagesListViewController: UITableViewDelegate {
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photosName.count
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,7 +70,9 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+        if (indexPath.row + 1) == photos.count {
+            ImagesListService.shared.fetchPhotosNextPage()
+        }
     }
 }
 

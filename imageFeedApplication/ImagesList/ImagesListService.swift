@@ -45,6 +45,8 @@ struct Photo {
 final class ImagesListService {
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
+    private var urlSession = URLSession.shared
+    private var task: URLSessionTask?
     
     func fetchPhotosNextPage() {
         

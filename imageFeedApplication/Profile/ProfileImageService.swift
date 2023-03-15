@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-enum getProfileImageError: Error {
+enum ProfileImageError: Error {
     case urlError
     case dataError
     case imageError
@@ -33,7 +33,7 @@ final class ProfileImageService {
         task?.cancel()
         
         guard let url = URL(string: GetProfileImageURL + username) else {
-            completion(.failure(getProfileImageError.urlError))
+            completion(.failure(ProfileImageError.urlError))
             return
         }
         
@@ -47,7 +47,7 @@ final class ProfileImageService {
                 switch result {
                 case .success(let success):
                     guard let usersImage = success.profileImages?["medium"] else {
-                        completion(.failure(getProfileImageError.imageError))
+                        completion(.failure(ProfileImageError.imageError))
                         return
                     }
                     self.avatarURL = usersImage

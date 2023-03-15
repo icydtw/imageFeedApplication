@@ -2,14 +2,14 @@ import UIKit
 import ProgressHUD
 
 final class SplashViewController: UIViewController {
-    private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let profileService = ProfileService.shared
     private let auth = OAuth2Service.shared
     private let rootController = UIApplication.shared.windows.first?.rootViewController
     private let logoImage = UIImageView()
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         setupSplashScreen()
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftKeychainWrapper
 
-enum tokenErrors: Error {
+enum TokenErrors: Error {
     case savingError
     case retrievingError
 }

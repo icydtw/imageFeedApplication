@@ -8,7 +8,7 @@
 @testable import imageFeedApplication
 import XCTest
 
-final class imageFeedApplicationTests: XCTestCase {
+final class ImagesListServiceTests: XCTestCase {
 
     func testExample() throws {
         

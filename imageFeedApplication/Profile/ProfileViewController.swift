@@ -1,6 +1,6 @@
-import Foundation
 import UIKit
 import Kingfisher
+import WebKit
 
 class ProfileViewController: UIViewController {
     private let profilePicture = UIImageView()
@@ -108,6 +108,15 @@ class ProfileViewController: UIViewController {
     }
     
     private func logOut() {
+        // Очищаем все куки из хранилища.
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        // Запрашиваем все данные из локального хранилища.
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            // Массив полученных записей удаляем из хранилища.
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
         guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
         let splashScreen = SplashViewController()
         window.rootViewController = splashScreen

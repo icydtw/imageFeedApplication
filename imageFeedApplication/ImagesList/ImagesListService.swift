@@ -1,10 +1,3 @@
-//
-//  ImagesListService.swift
-//  imageFeedApplication
-//
-//  Created by Илья Тимченко on 15.03.2023.
-//
-
 import Foundation
 
 struct PhotoResult: Codable {
@@ -61,7 +54,7 @@ final class ImagesListService {
         if let lastLoadedPage {
             nextPage = lastLoadedPage + 1
         } else {
-            nextPage = 1
+            nextPage = 3
         }
         
         guard var urlComponents = URLComponents(string: GetPhotosURL) else { return }

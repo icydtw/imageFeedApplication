@@ -37,15 +37,11 @@ class ImagesListViewController: UIViewController {
 }
 
 extension ImagesListViewController: UITableViewDelegate {
-    ///отвечает за действия, которые будут выполнены при тапе по ячейке таблицы
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: ShowSingleImageSegueIdentifier, sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        guard let image = UIImage(named: photosName[indexPath.row]) else {
-//            return 0
-//        }
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
         let imageWidth = photos[indexPath.row].size.width
@@ -79,6 +75,7 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController {
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         let url = URL(string: photos[indexPath.row].thumbImageURL)
+        cell.imgView.kf.indicatorType = .activity
         cell.imgView.kf.setImage(with: url, placeholder: UIImage(named: "Stub"))
         cell.dateLabel.text = dateFormatter.string(from: Date())
         if ((indexPath.row+1) % 2) == 0 {
@@ -92,10 +89,7 @@ extension ImagesListViewController {
         tableView.performBatchUpdates {
             let oldCount = photos.count
             let newCount = ImagesListService.shared.photos.count
-            print("OLD: \(oldCount)")
-            print("NEW: \(newCount)")
             photos = ImagesListService.shared.photos
-            print("PHOTOS: \(photos.count)")
             var indexes: [IndexPath] = []
             if oldCount != newCount {
                 tableView.performBatchUpdates {

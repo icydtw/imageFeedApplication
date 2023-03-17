@@ -79,7 +79,7 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController {
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         let url = URL(string: photos[indexPath.row].thumbImageURL)
-        cell.imgView.kf.setImage(with: url)
+        cell.imgView.kf.setImage(with: url, placeholder: UIImage(named: "Stub"))
         cell.dateLabel.text = dateFormatter.string(from: Date())
         if ((indexPath.row+1) % 2) == 0 {
             cell.likeButton.imageView?.image = UIImage(named: "like_button_on")

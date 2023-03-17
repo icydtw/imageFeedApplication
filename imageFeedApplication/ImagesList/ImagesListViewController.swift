@@ -29,7 +29,8 @@ class ImagesListViewController: UIViewController {
             let destinationController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
             let image = UIImage(named: "\(photosName[indexPath.row])_full_size") ?? UIImage(named: photosName[indexPath.row])
-            destinationController.image = image
+            let fullImageURL = URL(string: photos[indexPath.row].largeImageURL)
+            destinationController.fullImageURL = fullImageURL
         } else {
             super.prepare(for: segue, sender: sender)
         }

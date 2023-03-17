@@ -1,15 +1,13 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
-    var image: UIImage! {
-        didSet {
+    var fullImageURL: URL! {
+        didSet{
             guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
         }
     }
     
-    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet var imageView: UIImageView!
     @IBOutlet private var scrollView: UIScrollView!
     
     @IBAction private func didTapBackButton() {
@@ -17,16 +15,15 @@ final class SingleImageViewController: UIViewController {
     }
     
     @IBAction private func didTapShareButton(_ sender: Any) {
-        let sendImage = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        let sendImage = UIActivityViewController(activityItems: [imageView.image], applicationActivities: nil)
         present(sendImage, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
+        setupImage()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 3.25
-        rescaleAndCenterImageInScrollView(image: image)
     }
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
@@ -44,6 +41,20 @@ final class SingleImageViewController: UIViewController {
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+    }
+    
+    private func setupImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: fullImageURL) { [weak self] result in
+            guard let self = self else {return}
+            UIBlockingProgressHUD.dismiss()
+            switch result {
+            case .success(let result):
+                self.rescaleAndCenterImageInScrollView(image: result.image)
+            case .failure(_):
+                print("Error")
+            }
+        }
     }
 }
 

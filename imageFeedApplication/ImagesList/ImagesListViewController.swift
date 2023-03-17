@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 class ImagesListViewController: UIViewController {
     var ShowSingleImageSegueIdentifier = "ShowSingleImage"
@@ -18,8 +19,7 @@ class ImagesListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         NotificationCenter.default.addObserver(forName: ImagesListService.notification, object: nil, queue: .main) { [weak self] _ in
             guard let self = self else { return }
-            self.photos = ImagesListService.shared.photos
-            print(self.photos)
+            self.updateTableViewAnimated()
         }
         ImagesListService.shared.fetchPhotosNextPage()
     }
@@ -43,21 +43,21 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let image = UIImage(named: photosName[indexPath.row]) else {
-            return 0
-        }
+//        guard let image = UIImage(named: photosName[indexPath.row]) else {
+//            return 0
+//        }
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        let imageWidth = image.size.width
+        let imageWidth = photos[indexPath.row].size.width
         let scale = imageViewWidth / imageWidth
-        let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
+        let cellHeight = photos[indexPath.row].size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
     }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return photos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,13 +78,34 @@ extension ImagesListViewController: UITableViewDataSource {
 
 extension ImagesListViewController {
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard let image = UIImage(named: String(photosName[indexPath.row])) else {return}
-        cell.imgView.image = image
+        let url = URL(string: photos[indexPath.row].thumbImageURL)
+        cell.imgView.kf.setImage(with: url)
         cell.dateLabel.text = dateFormatter.string(from: Date())
         if ((indexPath.row+1) % 2) == 0 {
             cell.likeButton.imageView?.image = UIImage(named: "like_button_on")
         } else {
             cell.likeButton.imageView?.image = UIImage(named: "like_button_off")
+        }
+    }
+    
+    private func updateTableViewAnimated() {
+        tableView.performBatchUpdates {
+            let oldCount = photos.count
+            let newCount = ImagesListService.shared.photos.count
+            print("OLD: \(oldCount)")
+            print("NEW: \(newCount)")
+            photos = ImagesListService.shared.photos
+            print("PHOTOS: \(photos.count)")
+            var indexes: [IndexPath] = []
+            if oldCount != newCount {
+                tableView.performBatchUpdates {
+                    for i in oldCount..<newCount {
+                        indexes.append(IndexPath(row: i, section: 0))
+                    }
+                    self.tableView.insertRows(at: indexes, with: .automatic)
+                }
+            }
+            
         }
     }
 }

@@ -36,8 +36,10 @@ struct Photo {
     let welcomeDescription: String?
     let thumbImageURL: String
     let largeImageURL: String
-    let isLiked: Bool
+    var isLiked: Bool
 }
+
+struct PhotoLikeResult: Codable {}
 
 final class ImagesListService {
     private (set) var photos: [Photo] = []
@@ -46,7 +48,6 @@ final class ImagesListService {
     private var task: URLSessionTask?
     private var nextPage = 0
     static let notificationPhotos = Notification.Name(rawValue: "photoAdded")
-    static let notificationLikes = Notification.Name(rawValue: "likeChanged")
     static let shared = ImagesListService()
     
     func fetchPhotosNextPage() {
@@ -86,12 +87,8 @@ final class ImagesListService {
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         if task != nil { return }
         
-        guard var urlComponents = URLComponents(string: LikePhotosURL) else { return }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "id", value: photoId)
-        ]
-        guard let url = urlComponents.url,
-              let token = OAuth2TokenStorage.shared.token else { return }
+        guard let url = URL(string: GetPhotosURL + "/\(photoId)/like") else { return }
+        guard let token = OAuth2TokenStorage.shared.token else { return }
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
@@ -103,37 +100,18 @@ final class ImagesListService {
             request.httpMethod = "POST"
         }
         
-        session.objectTask(for: request) { [weak self] (result: Result<PhotoResult, Error>) in
+        session.objectTask(for: request) { [weak self] (result: Result<PhotoLikeResult, Error>) in
             guard let self = self else { return }
             switch result {
-            case .success(let result):
-                NotificationCenter.default.post(name: ImagesListService.notificationLikes, object: self)
-                print("\(photoId) liked")
+            case .success(_):
+                guard let index = self.photos.firstIndex(where: { $0.id == photoId }) else { return }
+                let photo = self.photos[index]
+                self.photos[index].isLiked = !photo.isLiked
+                completion(.success(()))
             case .failure(let error):
-                return
+                completion(.failure(error))
             }
-        }
-        
-        // Поиск индекса элемента
-        if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
-            // Текущий элемент
-           let photo = self.photos[index]
-           // Копия элемента с инвертированным значением isLiked.
-           let newPhoto = Photo(
-                    id: photo.id,
-                    size: photo.size,
-                    createdAt: photo.createdAt,
-                    welcomeDescription: photo.welcomeDescription,
-                    thumbImageURL: photo.thumbImageURL,
-                    largeImageURL: photo.largeImageURL,
-                    isLiked: !photo.isLiked
-                )
-            // Заменяем элемент в массиве.
-            DispatchQueue.main.async {
-                var futureNewPhotos = self.photos
-                futureNewPhotos[index] = newPhoto
-                self.photos = futureNewPhotos
-            }
-        }
+            self.task = nil
+        }.resume()
     }
 }

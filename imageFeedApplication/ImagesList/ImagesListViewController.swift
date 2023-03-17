@@ -62,6 +62,7 @@ extension ImagesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         configCell(for: imageListCell, with: indexPath)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         return imageListCell
     }
     
@@ -72,17 +73,30 @@ extension ImagesListViewController: UITableViewDataSource {
     }
 }
 
-extension ImagesListViewController {
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        ImagesListService.shared.changeLike(photoId: photo.id, isLike: photo.isLiked) { (result: Result<Void, Error>) in
+            switch result {
+            case .success(_):
+                self.photos = ImagesListService.shared.photos
+                cell.setIsLiked(liked: self.photos[indexPath.row].isLiked)
+            case .failure(_):
+                return
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        cell.delegate = self
         let url = URL(string: photos[indexPath.row].thumbImageURL)
         cell.imgView.kf.indicatorType = .activity
         cell.imgView.kf.setImage(with: url, placeholder: UIImage(named: "Stub"))
         cell.dateLabel.text = dateFormatter.string(from: Date())
-        if ((indexPath.row+1) % 2) == 0 {
-            cell.likeButton.imageView?.image = UIImage(named: "like_button_on")
-        } else {
-            cell.likeButton.imageView?.image = UIImage(named: "like_button_off")
-        }
+        cell.setIsLiked(liked: photos[indexPath.row].isLiked)
     }
     
     private func updateTableViewAnimated() {
@@ -92,14 +106,11 @@ extension ImagesListViewController {
             photos = ImagesListService.shared.photos
             var indexes: [IndexPath] = []
             if oldCount != newCount {
-                tableView.performBatchUpdates {
-                    for i in oldCount..<newCount {
-                        indexes.append(IndexPath(row: i, section: 0))
-                    }
-                    self.tableView.insertRows(at: indexes, with: .automatic)
+                for i in oldCount..<newCount {
+                    indexes.append(IndexPath(row: i, section: 0))
                 }
+                self.tableView.insertRows(at: indexes, with: .automatic)
             }
-            
         }
     }
 }

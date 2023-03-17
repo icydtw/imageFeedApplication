@@ -7,7 +7,7 @@ enum TokenErrors: Error {
 }
 
 final class OAuth2TokenStorage {
-    private let keychainWrapper = UserDefaults.standard
+    private let keychainWrapper = KeychainWrapper.standard
     static let shared = OAuth2TokenStorage()
     
     private init() {}
@@ -17,7 +17,11 @@ final class OAuth2TokenStorage {
             keychainWrapper.string(forKey: "Auth token")
         }
         set {
-            keychainWrapper.set(newValue, forKey: "Auth token")
+            if let newValue {
+                keychainWrapper.set(newValue, forKey: "Auth token")
+            } else {
+                keychainWrapper.remove(forKey: "Auth token")
+            }
         }
     }
 }

@@ -52,9 +52,16 @@ final class SingleImageViewController: UIViewController {
             case .success(let result):
                 self.rescaleAndCenterImageInScrollView(image: result.image)
             case .failure(_):
-                print("Error")
+                self.present(self.makeAlert(), animated: true)
             }
         }
+    }
+    
+    private func makeAlert() -> UIAlertController {
+        let alertController = UIAlertController(title: "Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        return alertController
     }
 }
 

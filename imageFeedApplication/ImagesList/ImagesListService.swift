@@ -62,7 +62,7 @@ final class ImagesListService {
         guard var urlComponents = URLComponents(string: GetPhotosURL) else { return }
         urlComponents.queryItems = [
             URLQueryItem(name: "page", value: "\(nextPage)"),
-            URLQueryItem(name: "per_page", value: "5")
+            URLQueryItem(name: "per_page", value: "10")
         ]
         guard let url = urlComponents.url,
               let token = OAuth2TokenStorage.shared.token else { return }
@@ -76,6 +76,7 @@ final class ImagesListService {
             case .success(let result):
                 self.lastLoadedPage = self.nextPage
                 self.photos.append(contentsOf: result.map({$0.convertToPhoto()}))
+                self.removeDuplicatePhotos()
                 NotificationCenter.default.post(name: ImagesListService.notificationPhotos, object: self)
             case .failure(let error):
                 print("Произошла ошибка: \(error)")
@@ -115,3 +116,20 @@ final class ImagesListService {
         }.resume()
     }
 }
+
+extension ImagesListService {
+    func removeDuplicatePhotos() {
+        var uniquePhotos: [Photo] = []
+        var photoIds: Set<String> = []
+        
+        for photo in photos {
+            if !photoIds.contains(photo.id) {
+                uniquePhotos.append(photo)
+                photoIds.insert(photo.id)
+            }
+        }
+        
+        photos = uniquePhotos
+    }
+}
+

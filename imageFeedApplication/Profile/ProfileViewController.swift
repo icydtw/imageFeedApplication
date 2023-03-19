@@ -107,10 +107,6 @@ class ProfileViewController: UIViewController {
         ])
     }
     
-    private func runAnimation() {
-        
-    }
-    
     private func logOut() {
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
         

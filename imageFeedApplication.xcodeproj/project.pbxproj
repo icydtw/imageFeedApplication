@@ -426,6 +426,7 @@
 				DEVELOPMENT_TEAM = 8M49VCLT49;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = imageFeedApplication/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Image Feed";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -458,6 +459,7 @@
 				DEVELOPMENT_TEAM = 8M49VCLT49;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = imageFeedApplication/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Image Feed";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -7,6 +7,8 @@ final class OAuth2Service {
     private var lastCode: String?
     static let shared = OAuth2Service()
     
+    private init() {}
+    
     func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         guard lastCode != code else {
@@ -17,11 +19,11 @@ final class OAuth2Service {
             task.cancel()
         }
         
-        var urlComponents = URLComponents(string: UnsplashPostRequestURL)!
+        var urlComponents = URLComponents(string: unsplashPostRequestURL)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "client_secret", value: SecretKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "client_id", value: accessKey),
+            URLQueryItem(name: "client_secret", value: secretKey),
+            URLQueryItem(name: "redirect_uri", value: redirectURI),
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]

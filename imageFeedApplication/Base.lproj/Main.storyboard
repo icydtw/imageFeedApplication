@@ -58,7 +58,10 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFi-6T-vEK">
                                                     <rect key="frame" x="335" y="4" width="42" height="42"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="like_button_on"/>
+                                                    <state key="normal" image="like_button_off"/>
+                                                    <connections>
+                                                        <action selector="likeButtonTapped:" destination="sRv-lR-Fdy" eventType="touchUpInside" id="81n-2A-sdH"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDo-xb-LUz">
                                                     <rect key="frame" x="24" y="112.33333333333333" width="30.666666666666671" height="15.666666666666671"/>
@@ -320,7 +323,7 @@
         <image name="0" width="200" height="132"/>
         <image name="Sharing" width="50" height="50"/>
         <image name="chevron.backward" width="9" height="15.666666984558105"/>
-        <image name="like_button_on" width="42" height="42"/>
+        <image name="like_button_off" width="42" height="42"/>
         <image name="logo_enter" width="60" height="60"/>
         <image name="nav_back_button" width="9" height="15.666666984558105"/>
         <image name="tab_editorial_active" width="20" height="22"/>

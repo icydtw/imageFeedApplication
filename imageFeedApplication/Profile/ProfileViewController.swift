@@ -1,8 +1,8 @@
-import Foundation
 import UIKit
 import Kingfisher
+import WebKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     private let profilePicture = UIImageView()
     private let usernameLabel = UILabel()
     private let nicknameLabel = UILabel()
@@ -108,9 +108,25 @@ class ProfileViewController: UIViewController {
     }
     
     private func logOut() {
-        guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
-        let splashScreen = SplashViewController()
-        window.rootViewController = splashScreen
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Да", style: .default) { (_) in
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+            WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+                records.forEach { record in
+                    WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                }
+            }
+            guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
+            let splashScreen = SplashViewController()
+            window.rootViewController = splashScreen
+        }
+        
+        let noAction = UIAlertAction(title: "Нет", style: .cancel)
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @objc

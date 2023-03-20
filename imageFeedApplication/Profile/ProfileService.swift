@@ -32,11 +32,13 @@ final class ProfileService {
     private(set) var profile: Profile?
     static let shared = ProfileService()
     
+    private init() {}
+    
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         task?.cancel()
         
-        guard let url = URL(string: GetProfileURL) else {
+        guard let url = URL(string: getProfileURL) else {
             completion(.failure(ProfileResultsError.urlError))
             return
         }

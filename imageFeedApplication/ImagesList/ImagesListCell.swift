@@ -7,8 +7,8 @@ final class ImagesListCell: UITableViewCell {
     
     @IBOutlet var imgView: UIImageView!
     @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var likeButton: UIButton!
-    @IBAction func likeButtonTapped(_ sender: Any) {
+    @IBOutlet private var likeButton: UIButton!
+    @IBAction private func likeButtonTapped(_ sender: Any) {
         delegate?.imageListCellDidTapLike(self)
     }
     

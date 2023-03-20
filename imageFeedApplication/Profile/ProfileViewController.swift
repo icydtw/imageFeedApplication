@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 import WebKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     private let profilePicture = UIImageView()
     private let usernameLabel = UILabel()
     private let nicknameLabel = UILabel()

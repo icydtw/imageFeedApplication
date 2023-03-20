@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController {
     var ShowSingleImageSegueIdentifier = "ShowSingleImage"
     @IBOutlet private var tableView: UITableView!
     private let photosName: [String] = Array(0..<5).map{ "\($0)" }

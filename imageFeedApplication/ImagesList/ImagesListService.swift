@@ -50,6 +50,8 @@ final class ImagesListService {
     static let notificationPhotos = Notification.Name(rawValue: "photoAdded")
     static let shared = ImagesListService()
     
+    private init() {}
+    
     func fetchPhotosNextPage() {
         if task != nil { return }
         
@@ -59,7 +61,7 @@ final class ImagesListService {
             nextPage = 3
         }
         
-        guard var urlComponents = URLComponents(string: GetPhotosURL) else { return }
+        guard var urlComponents = URLComponents(string: getPhotosURL) else { return }
         urlComponents.queryItems = [
             URLQueryItem(name: "page", value: "\(nextPage)"),
             URLQueryItem(name: "per_page", value: "10")
@@ -88,7 +90,7 @@ final class ImagesListService {
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         if task != nil { return }
         
-        guard let url = URL(string: GetPhotosURL + "/\(photoId)/like") else { return }
+        guard let url = URL(string: getPhotosURL + "/\(photoId)/like") else { return }
         guard let token = OAuth2TokenStorage.shared.token else { return }
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

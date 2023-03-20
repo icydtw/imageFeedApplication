@@ -32,7 +32,7 @@ final class ProfileImageService {
         assert(Thread.isMainThread)
         task?.cancel()
         
-        guard let url = URL(string: GetProfileImageURL + username) else {
+        guard let url = URL(string: getProfileImageURL + username) else {
             completion(.failure(ProfileImageError.urlError))
             return
         }

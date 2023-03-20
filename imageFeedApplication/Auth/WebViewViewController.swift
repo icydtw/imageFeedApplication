@@ -1,9 +1,11 @@
 import UIKit
 import WebKit
 
-protocol WebViewViewControllerProtocol {
+protocol WebViewViewControllerProtocol: AnyObject {
     var presenter: WebViewPresenterProtocol? { get set }
     func load(request: URLRequest)
+    func setProgressValue(_ newValue: Float)
+    func setProgressHidden(_ isHidden: Bool)
 }
 
 final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
@@ -19,24 +21,42 @@ final class WebViewViewController: UIViewController, WebViewViewControllerProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        estimatedProgressObservation = webView.observe(\.estimatedProgress,
-                                                        options: [],
-                                                        changeHandler: { [weak self] _, change in
-            guard let self = self else { return }
-            self.updateProgress()
-        })
         webView.navigationDelegate = self
         presenter?.viewDidLoad()
-        updateProgress()
     }
     
     func load(request: URLRequest) {
         webView.load(request)
     }
     
-    private func updateProgress() {
-        progressView.progress = Float(webView.estimatedProgress)
-        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+    func setProgressValue(_ newValue: Float) {
+        progressView.progress = newValue
+    }
+
+    func setProgressHidden(_ isHidden: Bool) {
+        progressView.isHidden = isHidden
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        webView.addObserver(
+            self,
+            forKeyPath: #keyPath(WKWebView.estimatedProgress),
+            options: .new,
+            context: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(WKWebView.estimatedProgress) {
+            presenter?.didUpdateProgressValue(webView.estimatedProgress)
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
     }
 }
 

@@ -3,6 +3,7 @@ import WebKit
 
 protocol WebViewViewControllerProtocol {
     var presenter: WebViewPresenterProtocol? { get set }
+    func load(request: URLRequest)
 }
 
 final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
@@ -18,26 +19,19 @@ final class WebViewViewController: UIViewController, WebViewViewControllerProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         estimatedProgressObservation = webView.observe(\.estimatedProgress,
                                                         options: [],
                                                         changeHandler: { [weak self] _, change in
             guard let self = self else { return }
             self.updateProgress()
         })
-        
         webView.navigationDelegate = self
-        var urlComponents = URLComponents(string: unsplashAuthorizeURLString)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: accessKey), //код доступа приложения
-            URLQueryItem(name: "redirect_uri", value: redirectURI), //URI, кот. обрабатывает успешную авторизацию пользователя
-            URLQueryItem(name: "response_type", value: "code"), //тип ответа, который мы ожидаем
-            URLQueryItem(name: "scope", value: accessScope) //список доступов
-        ]
-        let url = urlComponents.url!
-        let request = URLRequest(url: url)
-        webView.load(request)
+        presenter?.viewDidLoad()
         updateProgress()
+    }
+    
+    func load(request: URLRequest) {
+        webView.load(request)
     }
     
     private func updateProgress() {

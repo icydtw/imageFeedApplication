@@ -14,6 +14,9 @@ final class AuthViewController: UIViewController, UIWebViewDelegate {
             guard let webViewViewController = segue.destination as? WebViewViewController else {
                 return assertionFailure("Ошибка!")
             }
+            let webViewPresenter = WebViewPresenter()
+            webViewViewController.presenter = webViewPresenter
+            webViewPresenter.view = webViewViewController
             webViewViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)

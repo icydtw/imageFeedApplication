@@ -1,7 +1,12 @@
 import UIKit
 import WebKit
 
-final class WebViewViewController: UIViewController {
+protocol WebViewViewControllerProtocol {
+    var presenter: WebViewPresenterProtocol? { get set }
+}
+
+final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
+    var presenter: WebViewPresenterProtocol?
     @IBOutlet private var webView: WKWebView!
     @IBAction private func didTapBackButton(_ sender: Any) {
         delegate?.webViewViewControllerDidCancel(self)

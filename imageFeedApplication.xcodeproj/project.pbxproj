@@ -17,7 +17,7 @@
 		B47D41C029B1E76C00685CFB /* ExtensionURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47D41BF29B1E76C00685CFB /* ExtensionURLSession.swift */; };
 		B484032729BEFD2500953148 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = B484032629BEFD2500953148 /* SwiftKeychainWrapper */; };
 		B484032929BF092500953148 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B484032829BF092500953148 /* TabBarController.swift */; };
-		B48A9BFE29717F770073DF76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A9BFD29717F770073DF76 /* Constants.swift */; };
+		B48A9BFE29717F770073DF76 /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A9BFD29717F770073DF76 /* AuthConfiguration.swift */; };
 		B491F95F29ACC1A000F11204 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B491F95E29ACC1A000F11204 /* UIBlockingProgressHUD.swift */; };
 		B491F96129ADDEEB00F11204 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B491F96029ADDEEB00F11204 /* ProfileService.swift */; };
 		B49B9302298CC8A400627169 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49B9301298CC8A400627169 /* AuthViewController.swift */; };
@@ -46,7 +46,7 @@
 		B47D41BD29B09ACE00685CFB /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		B47D41BF29B1E76C00685CFB /* ExtensionURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURLSession.swift; sourceTree = "<group>"; };
 		B484032829BF092500953148 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		B48A9BFD29717F770073DF76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B48A9BFD29717F770073DF76 /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
 		B491F95E29ACC1A000F11204 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		B491F96029ADDEEB00F11204 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		B49B9301298CC8A400627169 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		B48A9C0029717F9F0073DF76 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				B48A9BFD29717F770073DF76 /* Constants.swift */,
+				B48A9BFD29717F770073DF76 /* AuthConfiguration.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 				B4F175822951A4540037E886 /* AppDelegate.swift in Sources */,
 				B491F95F29ACC1A000F11204 /* UIBlockingProgressHUD.swift in Sources */,
 				B49B9302298CC8A400627169 /* AuthViewController.swift in Sources */,
-				B48A9BFE29717F770073DF76 /* Constants.swift in Sources */,
+				B48A9BFE29717F770073DF76 /* AuthConfiguration.swift in Sources */,
 				B40121412967DE640055F198 /* SingleImageViewController.swift in Sources */,
 				B49B9305298CC9AC00627169 /* WebViewViewController.swift in Sources */,
 				B4B191D6299F8F8300FA60A7 /* OAuth2TokenStorage.swift in Sources */,

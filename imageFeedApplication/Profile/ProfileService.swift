@@ -38,7 +38,7 @@ final class ProfileService {
         assert(Thread.isMainThread)
         task?.cancel()
         
-        guard let url = URL(string: getProfileURL) else {
+        guard let url = URL(string: GetProfileURL) else {
             completion(.failure(ProfileResultsError.urlError))
             return
         }

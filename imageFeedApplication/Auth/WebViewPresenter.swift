@@ -11,12 +11,12 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     var view: WebViewViewControllerProtocol?
     
     func viewDidLoad() {
-        var urlComponents = URLComponents(string: unsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: accessKey), //код доступа приложения
-            URLQueryItem(name: "redirect_uri", value: redirectURI), //URI, кот. обрабатывает успешную авторизацию пользователя
+            URLQueryItem(name: "client_id", value: AccessKey), //код доступа приложения
+            URLQueryItem(name: "redirect_uri", value: RedirectURI), //URI, кот. обрабатывает успешную авторизацию пользователя
             URLQueryItem(name: "response_type", value: "code"), //тип ответа, который мы ожидаем
-            URLQueryItem(name: "scope", value: accessScope) //список доступов
+            URLQueryItem(name: "scope", value: AccessScope) //список доступов
         ]
         let url = urlComponents.url!
         let request = URLRequest(url: url)

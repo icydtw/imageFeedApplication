@@ -1,11 +1,17 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+protocol ImagesListViewControllerProtocol {
+    var presenter: ImagesListViewPresenterProtocol? {get set}
+    func updateTableViewAnimated()
+}
+
+final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
+    var presenter: ImagesListViewPresenterProtocol?
     var ShowSingleImageSegueIdentifier = "ShowSingleImage"
     @IBOutlet private var tableView: UITableView!
     private let photosName: [String] = Array(0..<5).map{ "\($0)" }
-    private var photos: [Photo] = []
+    var photos: [Photo] = []
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -17,12 +23,7 @@ final class ImagesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        NotificationCenter.default.addObserver(forName: ImagesListService.notificationPhotos, object: nil, queue: .main) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateTableViewAnimated()
-        }
-        ImagesListService.shared.fetchPhotosNextPage()
+        presenter?.viewDidLoad()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,6 +35,11 @@ final class ImagesListViewController: UIViewController {
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+    
+    func configure(_ presenter: ImagesListViewPresenterProtocol) {
+        self.presenter = presenter
+        presenter.view = self
     }
 }
 
@@ -68,9 +74,7 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if (indexPath.row + 1) == photos.count {
-            ImagesListService.shared.fetchPhotosNextPage()
-        }
+        presenter?.isNeedToFetchNextPage(row: indexPath.row)
     }
 }
 
@@ -100,7 +104,7 @@ extension ImagesListViewController: ImagesListCellDelegate {
         cell.setIsLiked(liked: photos[indexPath.row].isLiked)
     }
     
-    private func updateTableViewAnimated() {
+    func updateTableViewAnimated() {
         tableView.performBatchUpdates {
             let oldCount = photos.count
             let newCount = ImagesListService.shared.photos.count

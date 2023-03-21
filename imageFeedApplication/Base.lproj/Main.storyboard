@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fpG-ML-8Qc">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="20" width="393" height="832"/>
                                 <color key="backgroundColor" name="YP Black"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagesListCell" id="sRv-lR-Fdy" customClass="ImagesListCell" customModule="imageFeedApplication" customModuleProvider="target">
@@ -102,7 +102,7 @@
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="fpG-ML-8Qc" secondAttribute="bottom" id="2wP-JB-KMX"/>
-                            <constraint firstItem="fpG-ML-8Qc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9jw-lZ-Pdz"/>
+                            <constraint firstItem="fpG-ML-8Qc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="9jw-lZ-Pdz"/>
                             <constraint firstItem="fpG-ML-8Qc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WDh-XQ-dB6"/>
                             <constraint firstAttribute="trailing" secondItem="fpG-ML-8Qc" secondAttribute="trailing" id="ulh-1b-PWI"/>
                         </constraints>

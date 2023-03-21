@@ -2,7 +2,7 @@ import XCTest
 import imageFeedApplication
 @testable import imageFeedApplication
 
-//классs объектов-дулёров
+//классы объектов-дулёров
 final class WebViewPresenterSpy: WebViewPresenterProtocol {
     var viewDidLoadCalled: Bool = false
     var view: WebViewViewControllerProtocol?

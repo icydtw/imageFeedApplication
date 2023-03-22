@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-protocol ImagesListViewControllerProtocol {
+protocol ImagesListViewControllerProtocol: AnyObject {
     var presenter: ImagesListViewPresenterProtocol? {get set}
     func updateTableViewAnimated()
 }

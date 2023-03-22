@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 import WebKit
 
-protocol ProfileViewControllerProtocol {
+protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfileViewPresenterProtocol? { get set }
     func updateAvatar()
 }

@@ -8,7 +8,7 @@ protocol ImagesListViewPresenterProtocol: AnyObject {
 
 final class ImagesListViewPresenter: ImagesListViewPresenterProtocol {
     
-    var view: ImagesListViewControllerProtocol?
+    weak var view: ImagesListViewControllerProtocol?
     
     init(view: ImagesListViewControllerProtocol? = nil) {
         self.view = view

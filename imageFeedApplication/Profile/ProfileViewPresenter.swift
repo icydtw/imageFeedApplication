@@ -11,7 +11,7 @@ protocol ProfileViewPresenterProtocol: AnyObject {
 }
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
-    var view: ProfileViewControllerProtocol?
+    weak var view: ProfileViewControllerProtocol?
     var helper: ProfileHelperProtocol
     
     init(view: ProfileViewControllerProtocol? = nil, helper: ProfileHelperProtocol) {
